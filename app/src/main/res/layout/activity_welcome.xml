@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".WelcomeActivity">
+
+
+<!--    <ImageView-->
+<!--        android:id="@+id/imgWelcomeLogo"-->
+<!--        android:layout_width="340dp"-->
+<!--        android:layout_height="304dp"-->
+<!--        android:layout_marginTop="32dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.495"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:srcCompat="@mipmap/chorechamplogo2_round" -->
+<!--        />-->
+
+    <TextView
+        android:id="@+id/txtWelcome"
+        android:layout_width="285dp"
+        android:layout_height="60dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="28dp"
+        android:gravity="center_horizontal|top"
+        android:lineSpacingExtra="2sp"
+        android:text="@string/welcome"
+        android:textAppearance="@style/welcome"
+        android:translationY="-1.2sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+<!--        app:layout_constraintTop_toBottomOf="@+id/imgWelcomeLogo"-->
+
+    <Button
+        android:id="@+id/btnWelcomeLogin"
+        android:layout_width="197dp"
+        android:layout_height="71dp"
+        android:text="Login"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtWelcome"
+        app:layout_constraintVertical_bias="0.224" />
+
+    <Button
+        android:id="@+id/btnWelcomeRegister"
+        android:layout_width="197dp"
+        android:layout_height="71dp"
+        android:layout_marginBottom="24dp"
+        android:text="Register"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnWelcomeLogin"
+        app:layout_constraintVertical_bias="0.219" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
