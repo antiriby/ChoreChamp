@@ -47,9 +47,10 @@
         android:id="@+id/radioButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="132dp"
         android:text="Always Available?"
-        tools:layout_editor_absoluteX="132dp"
-        tools:layout_editor_absoluteY="224dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="231dp" />
 
     <Button
         android:id="@+id/button"
