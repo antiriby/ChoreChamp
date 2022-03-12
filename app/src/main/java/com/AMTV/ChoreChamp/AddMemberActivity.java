@@ -53,7 +53,7 @@ public class AddMemberActivity extends AppCompatActivity implements View.OnClick
         admin = (RadioButton) findViewById(R.id.radioBtnAddMememberAdmin);
         admin.setOnClickListener(this);
 
-        householdID = getIntent().getStringExtra("HouseholdID");
+        householdID = (getIntent().getStringExtra("HouseholdID")).substring(1);
         familyPassword = getIntent().getStringExtra("FamilyPassword");
         currentUser = (User)getIntent().getSerializableExtra("CurrentUser");
         household = (Household) getIntent().getSerializableExtra("Household");
@@ -90,12 +90,11 @@ public class AddMemberActivity extends AppCompatActivity implements View.OnClick
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            dbReference.child("Users").push().setValue(user);
+                            dbReference.child("Users").child(mAuth.getUid()).setValue(user);
                             editTextName.getText().clear();
                             editTextEmail.getText().clear();
                         } else {
                             Toast.makeText(AddMemberActivity.this, "Something went wrong. Please try Again!", Toast.LENGTH_LONG).show();
-
                         }
                     }
                 });
@@ -106,6 +105,8 @@ public class AddMemberActivity extends AppCompatActivity implements View.OnClick
 
 
     private void createHousehold() {
+        //TODO: Call addNewMember() here if the name and email text fields are not empty
+
         // Update member list for household object including the admin/current user
         members.add(currentUser);
         household.setMembers(members);

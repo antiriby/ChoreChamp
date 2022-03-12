@@ -127,7 +127,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
                             DatabaseReference householdRef =  dbReference.child("Households").push();
                             User user = new User(name, email, adminRole, householdRef.getKey());
-                            dbReference.child("Users").push().setValue(user);
+                            dbReference.child("Users").child(mAuth.getCurrentUser().getUid()).setValue(user);
 
                             Household household = new Household(householdName,familyPassword,user);
 
@@ -143,41 +143,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                             Toast.makeText(RegisterActivity.this, "Something went wrong. Please try Again!", Toast.LENGTH_LONG).show();
                             progressBar.setVisibility(View.GONE);
                         }
-
-
-
-
-
-//                        if (task.isSuccessful()) {
-//                            User user = new User(name, email, adminRole);
-//                            FirebaseDatabase.getInstance().getReference("Users")
-//                                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-//                                    .setValue(user)
-//                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-//                                        @Override
-//                                        public void onComplete(@NonNull Task<Void> task) {
-//                                            if (task.isSuccessful()) {
-//                                                DatabaseReference householdRef = dbReference.child("Households").push();
-//                                                System.out.println(householdRef.getKey());
-//
-//                                                householdRef.setValue(new Household(householdName,familyPassword,user));
-//
-//                                                Toast.makeText(RegisterActivity.this, "Household has been created successfully!", Toast.LENGTH_LONG).show();
-//                                                progressBar.setVisibility(View.GONE);
-//
-//                                                //redirect to Login layout by closing this activity
-//                                                finish();
-//                                            } else {
-//                                                Toast.makeText(RegisterActivity.this, "Something went wrong. Please try Again!", Toast.LENGTH_LONG).show();
-//                                                progressBar.setVisibility(View.GONE);
-//                                            }
-//                                        }
-//                                    });
-//
-//                        } else {
-//                            Toast.makeText(RegisterActivity.this, "Failed to register user. Try Again!", Toast.LENGTH_LONG).show();
-//                            progressBar.setVisibility(View.GONE);
-//                        }
                     }
                 });
     }
