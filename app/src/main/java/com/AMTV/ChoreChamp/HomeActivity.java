@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
 
 public class HomeActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
@@ -39,17 +38,17 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
         Fragment fragment;
         switch (item.getItemId()){
             case R.id.family:
-                getSupportFragmentManager().beginTransaction().replace(R.id.flFragment, firstFragment).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.bottomNavFragment, firstFragment).commit();
                 return true;
             case R.id.tasks:
-                getSupportFragmentManager().beginTransaction().replace(R.id.flFragment, secondFragment).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.bottomNavFragment, secondFragment).commit();
                 return true;
             case R.id.rewards:
                 fragment = thirdFragment;
-                getSupportFragmentManager().beginTransaction().replace(R.id.flFragment, thirdFragment).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.bottomNavFragment, thirdFragment).commit();
                 return true;
             case R.id.profile:
-                getSupportFragmentManager().beginTransaction().replace(R.id.flFragment, fourthFragment).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.bottomNavFragment, fourthFragment).commit();
                 return true;
         }
         return false;

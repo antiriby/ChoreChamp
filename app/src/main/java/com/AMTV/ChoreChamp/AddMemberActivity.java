@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -25,7 +26,7 @@ public class AddMemberActivity extends AppCompatActivity implements View.OnClick
 
     private EditText editTextName, editTextEmail;
     private Button addAnotherMember, nextButton;
-    private RadioButton admin;
+    private Switch admin;
 
     private String householdID, familyPassword;
     private User currentUser;
@@ -50,7 +51,7 @@ public class AddMemberActivity extends AppCompatActivity implements View.OnClick
         nextButton = (Button) findViewById(R.id.btnAddMemberNext);
         nextButton.setOnClickListener(this);
 
-        admin = (RadioButton) findViewById(R.id.radioBtnAddMememberAdmin);
+        admin = (Switch) findViewById(R.id.switchAddMemberAdmin);
         admin.setOnClickListener(this);
 
         householdID = (getIntent().getStringExtra("HouseholdID")).substring(1);
@@ -80,7 +81,7 @@ public class AddMemberActivity extends AppCompatActivity implements View.OnClick
 
         String name = editTextName.getText().toString().trim();
         String email = editTextEmail.getText().toString().trim();
-        Boolean role = false; //TODO: get value from Admin Radio Button
+        Boolean role = admin.isChecked();
 
 
         User user = new User(name, email, role, householdID);
@@ -93,19 +94,23 @@ public class AddMemberActivity extends AppCompatActivity implements View.OnClick
                             dbReference.child("Users").child(mAuth.getUid()).setValue(user);
                             editTextName.getText().clear();
                             editTextEmail.getText().clear();
+
+                            // Add new member to the member ArrayList
+                            members.add(user);
+                            Toast.makeText(AddMemberActivity.this, "Member was successfully added to household!", Toast.LENGTH_LONG).show();
                         } else {
                             Toast.makeText(AddMemberActivity.this, "Something went wrong. Please try Again!", Toast.LENGTH_LONG).show();
                         }
                     }
                 });
-        // Add new member to the member ArrayList
-        members.add(user);
-
     }
 
 
     private void createHousehold() {
-        //TODO: Call addNewMember() here if the name and email text fields are not empty
+        if(!editTextName.getText().toString().trim().isEmpty() &&
+                !editTextEmail.getText().toString().trim().isEmpty()){
+            addNewMember();
+        }
 
         // Update member list for household object including the admin/current user
         members.add(currentUser);
