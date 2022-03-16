@@ -31,6 +31,8 @@ public class RewardActivity extends AppCompatActivity {
     FirebaseUser user;
     String userId, householdId;
 
+    boolean isAdmin = false;
+
     Button btnAdd;
     List<Reward> rewardList = new ArrayList<>();
 
@@ -41,7 +43,12 @@ public class RewardActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_reward);
+        if(MyApplication.isAdmin()){
+            setContentView(R.layout.activity_admin_reward);
+
+        }else{
+            setContentView(R.layout.activity_reward);
+        }
 
         recyclerView = findViewById(R.id.rewardsList);
         recyclerView.setHasFixedSize(true);
@@ -52,65 +59,68 @@ public class RewardActivity extends AppCompatActivity {
         mAdapter = new RewardsAdapter(rewardList, RewardActivity.this);
         recyclerView.setAdapter(mAdapter);
 
-        user = FirebaseAuth.getInstance().getCurrentUser();
-        userId = user.getUid();
-        FirebaseDatabase.getInstance().getReference().child("Users").child(userId).child("householdId").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-           @Override
-           public void onComplete(@NonNull Task<DataSnapshot> task) {
-               if (!task.isSuccessful()) {
-                   Toast.makeText(RewardActivity.this, "Something went wrong. Please try Again!", Toast.LENGTH_LONG).show();
-               } else {
-                   householdId = String.valueOf(task.getResult().getValue());
+        userId = MyApplication.getUserId();
 
-                   dbReference = FirebaseDatabase.getInstance().getReference().child("Households").child(householdId).child("Rewards");
-                   dbReference.addValueEventListener(new ValueEventListener() {
-                       @Override
-                       public void onDataChange(@NonNull DataSnapshot snapshot) {
-                           rewardList.clear();
-                           for (DataSnapshot snapshot1 : snapshot.getChildren()){
-                               Reward ld = snapshot1.getValue(Reward.class);
-                               rewardList.add(ld);
-                           }
+        householdId = MyApplication.getHouseholdId();
 
-                           mAdapter.notifyDataSetChanged();
-                       }
+        // Admins can see all of household rewards, non-admins can only see their rewards
+        if(MyApplication.isAdmin()) {
+            dbReference = FirebaseDatabase.getInstance().getReference().child("Households").child(householdId).child("availableRewards");
+            dbReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    rewardList.clear();
+                    for (DataSnapshot snapshot1 : snapshot.getChildren()) {
+                        Reward ld = snapshot1.getValue(Reward.class);
+                        rewardList.add(ld);
+                    }
 
-                       @Override
-                       public void onCancelled(@NonNull DatabaseError error) {
-                           Toast.makeText(RewardActivity.this, "Failed to update rewards list", Toast.LENGTH_LONG).show();
-                       }
-                   });
-               }
-           }
-       });
+                    mAdapter.notifyDataSetChanged();
+                }
 
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Toast.makeText(RewardActivity.this, "Failed to update rewards list", Toast.LENGTH_LONG).show();
+                }
+            });
+        } else {
+            dbReference = FirebaseDatabase.getInstance().getReference().child("Users").child(userId).child("availableRewards");
+            dbReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    rewardList.clear();
+                    for (DataSnapshot snapshot1 : snapshot.getChildren()) {
+                        Reward ld = snapshot1.getValue(Reward.class);
+                        rewardList.add(ld);
+                    }
 
-//        fillRewardsList();
-        btnAdd = findViewById(R.id.btnRewardAdd);
+                    mAdapter.notifyDataSetChanged();
+                }
 
-        btnAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(RewardActivity.this, AddEditRewardActivity.class);
-                startActivity(intent);
-            }
-        });
-
-
-
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Toast.makeText(RewardActivity.this, "Failed to update rewards list", Toast.LENGTH_LONG).show();
+                }
+            });
+        }
 
 
+
+
+
+        // Only shows + button if admin
+        if(MyApplication.isAdmin()){
+            btnAdd = findViewById(R.id.btnRewardAdd);
+
+            btnAdd.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(RewardActivity.this, AddEditRewardActivity.class);
+                    startActivity(intent);
+                }
+            });
+        }
 
     }
-
-//    private void fillRewardsList() {
-//        // TODO get rewards from database
-//
-//        Reward r1 = new Reward("Chocolate",10);
-//        Reward r2 = new Reward("Watch movie", 20);
-//        Reward r3 = new Reward("New toy", 100);
-//
-//        rewardList.addAll(Arrays.asList(new Reward[] {r1, r2, r3}));
-//    }
 
 }

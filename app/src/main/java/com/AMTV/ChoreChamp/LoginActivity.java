@@ -18,6 +18,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -28,6 +31,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private FirebaseAuth mAuth;
     private ProgressBar progressBar;
 
+    private FirebaseUser user;
+    private String userId;
+    private boolean isAdmin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,7 +96,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         progressBar.setVisibility(View.VISIBLE);
 
-
         //Check Firebase Authentication
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
@@ -99,8 +104,41 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     //redirect to user profile/homepage
                     //TODO check if ProfileActivity object already exists. If so, DO NOT CREATE ANOTHER ACTIVITY
                     // Double clicking on the login button creates two profile activities so find a wa to solve this issue
-                    startActivity(new Intent(LoginActivity.this, ProfileActivity.class));
-//                    startActivity(new Intent(LoginActivity.this, RewardActivity.class));
+
+                    user = FirebaseAuth.getInstance().getCurrentUser();
+                    userId = user.getUid();
+                    MyApplication.setUserId(user.getUid());
+
+                    MyApplication.setDbReference(FirebaseDatabase.getInstance().getReference());
+
+                    MyApplication.getDbReference().child("Users").child(userId).child("role").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DataSnapshot> task) {
+                            if (!task.isSuccessful()) {
+                                Toast.makeText(LoginActivity.this, "Something went wrong!", Toast.LENGTH_LONG).show();
+                            } else {
+                                String result = (String) task.getResult().getValue();
+                                if (result.equals("Admin")) {
+                                    MyApplication.setAdmin(true);
+                                } else {
+                                    MyApplication.setAdmin(false);
+                                }
+                            }
+                        }
+                    });
+
+                    MyApplication.getDbReference().child("Users").child(userId).child("householdId").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DataSnapshot> task) {
+                            if (!task.isSuccessful()) {
+                                Toast.makeText(LoginActivity.this, "Something went wrong. Please try Again!", Toast.LENGTH_LONG).show();
+                            } else {
+                                MyApplication.setHouseholdId(String.valueOf(task.getResult().getValue()));
+//                                startActivity(new Intent(LoginActivity.this, ProfileActivity.class));
+                                startActivity(new Intent(LoginActivity.this, RewardActivity.class));
+                            }
+                        }
+                    });
                 } else {
                     Toast.makeText(LoginActivity.this, "Failed to login! Please check credentials", Toast.LENGTH_LONG).show();
                 }

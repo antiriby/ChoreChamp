@@ -1,6 +1,7 @@
 package com.AMTV.ChoreChamp;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class User implements Serializable {
     private String name, email, role, householdId, uid;
@@ -18,6 +19,7 @@ public class User implements Serializable {
         } else {
             role = "Member";
         }
+
     }
 
     public String getName() {

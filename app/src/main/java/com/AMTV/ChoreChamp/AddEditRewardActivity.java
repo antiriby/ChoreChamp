@@ -56,37 +56,30 @@ public class AddEditRewardActivity extends AppCompatActivity implements MemberAs
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_edit_reward);
 
-        user = FirebaseAuth.getInstance().getCurrentUser();
-        userId = user.getUid();
+        userId = MyApplication.getUserId();
 
         userReference = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
-        userReference.child("householdId").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+
+        householdId = MyApplication.getHouseholdId();
+        householdReference = FirebaseDatabase.getInstance().getReference().child("Households");
+
+        fillMembersArray();
+        initRecyclerView();
+
+        btnSave = findViewById(R.id.btnAddEditSave);
+
+        editTextName = (EditText) findViewById(R.id.addEditRewardName);
+        editTextPoints = (EditText) findViewById(R.id.addEditRewardPoints);
+        editTextDescription = (EditText) findViewById(R.id.addEditRewardDescription);
+
+        btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if(!task.isSuccessful()){
-                    Toast.makeText(AddEditRewardActivity.this, "Something went wrong. Please try Again!", Toast.LENGTH_LONG).show();
-                }else{
-                    householdId = String.valueOf(task.getResult().getValue());
-                    householdReference = FirebaseDatabase.getInstance().getReference().child("Households");
-
-                    fillMembersArray();
-                    initRecyclerView();
-
-                    btnSave = findViewById(R.id.btnAddEditSave);
-
-                    editTextName = (EditText) findViewById(R.id.addEditRewardName);
-                    editTextPoints = (EditText) findViewById(R.id.addEditRewardPoints);
-                    editTextDescription = (EditText) findViewById(R.id.addEditRewardDescription);
-
-                    btnSave.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            updateReward();
-                        }
-                    });
-                }
+            public void onClick(View view) {
+                updateReward();
             }
         });
+
+
 
 
     }
@@ -113,28 +106,16 @@ public class AddEditRewardActivity extends AppCompatActivity implements MemberAs
         Map<String, Object> childUpdates = new HashMap<>();
 
         for(String assignee : assigneeIds){
-            String key = householdReference.child(householdId).child("Rewards").push().getKey();
+            String key = householdReference.child(householdId).child("availableRewards").push().getKey();
             Reward reward = new Reward(name, points, assignee, description);
 
-            childUpdates.put("/"+householdId+"/Rewards/"+key, reward);
+            householdReference.child(householdId).child("availableRewards").child(key).setValue(reward);
 
+            MyApplication.getDbReference().child("Users").child(assignee).child("availableRewards").child(key).setValue(reward);
         }
 
-        householdReference.updateChildren(childUpdates)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        Intent intent = new Intent(AddEditRewardActivity.this, RewardActivity.class);
-                        startActivity(intent);
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(AddEditRewardActivity.this, "Something went wrong. Please try Again!", Toast.LENGTH_LONG).show();
-                    }
-                });
-
+        Intent intent = new Intent(AddEditRewardActivity.this, RewardActivity.class);
+        startActivity(intent);
     }
 
     private void fillMembersArray(){
