@@ -1,6 +1,7 @@
 package com.AMTV.ChoreChamp;
 
 import android.content.Context;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,41 +12,42 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 
 import java.io.Serializable;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 
-public class UserAdapter extends FirebaseRecyclerAdapter<User,UserAdapter.usersViewHolder> implements Serializable {
+public class UserAdapter extends RecyclerView.Adapter<UserAdapter.usersViewHolder> implements Serializable {
 
     private Context context;
-    private FirebaseRecyclerOptions<User> userList;
-    public UserAdapter(@NonNull Context context, @NonNull FirebaseRecyclerOptions<User> userList)
+    private ArrayList<User> userList;
+    public UserAdapter(@NonNull Context context, @NonNull ArrayList<User> userList)
     {
-        super(userList);
+        super();
         this.context = context;
         this.userList = userList;
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull UserAdapter.usersViewHolder holder, int position, @NonNull User model) {
-        holder.name.setText(model.getName());
-        //TODO: add points to User Class and display in RecyclerView
-        //holder.points.setText(model.getPoints());
-    }
-
-    @Override
     public int getItemCount() {
-        return 0;
+        return userList.size();
     }
 
     @NonNull
     @Override
     public usersViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
     {
-        LayoutInflater inflater = LayoutInflater.from(context);
 
-        View view = inflater.from(parent.getContext())
+        View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.household_list_item, parent, false);
-        view.setVisibility(View.VISIBLE);
-        return new UserAdapter.usersViewHolder(view);
+        usersViewHolder holder = new usersViewHolder(view);
+        return holder;
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull usersViewHolder holder, int position) {
+        holder.name.setText(userList.get(position).getName());
+        //TODO: add points to User Class and display in RecyclerView
+        //holder.points.setText(userList.get(position).getPoints());
     }
 
     class usersViewHolder extends RecyclerView.ViewHolder {

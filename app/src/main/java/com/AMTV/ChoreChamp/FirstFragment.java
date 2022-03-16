@@ -2,7 +2,7 @@ package com.AMTV.ChoreChamp;
 
 import android.os.Bundle;
 
-import androidx.annotation.Nullable;
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -11,10 +11,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,12 +31,13 @@ public class FirstFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ADAPTER = "adapter";
-
-    // TODO: Rename and change types of parameters
-    private RecyclerView recyclerView;
     private DatabaseReference householdRef;
-    private UserAdapter adapter;
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager layoutManager;
+    private FirebaseRecyclerOptions<User> options;
+    private ArrayList<User>userList;
+
 
     public FirstFragment() {
         // Required empty public constructor
@@ -45,10 +52,9 @@ public class FirstFragment extends Fragment {
      * @return A new instance of fragment FirstFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static FirstFragment newInstance(UserAdapter adapter) {
+    public static FirstFragment newInstance() {
         FirstFragment fragment = new FirstFragment();
         Bundle args = new Bundle();
-        args.putSerializable(ADAPTER,adapter);
         fragment.setArguments(args);
         return fragment;
     }
@@ -64,11 +70,12 @@ public class FirstFragment extends Fragment {
                 .child(MyApplication.getHouseholdId())
                 .child("members");
 
-//        FirebaseRecyclerOptions<User> options = new FirebaseRecyclerOptions.Builder<User>()
-//                .setQuery(householdRef, User.class)
-//                .build();
-//
-//        adapter = new UserAdapter(getActivity(),options);
+        options = new FirebaseRecyclerOptions.Builder<User>()
+                .setQuery(householdRef, User.class)
+                .build();
+
+        userList = new ArrayList<>();
+
     }
 
     @Override
@@ -77,44 +84,35 @@ public class FirstFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_first, container, false);
 
-        recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerFragmentHouseholdList);
+        recyclerView = rootView.findViewById(R.id.recyclerFragmentHouseholdList);
         recyclerView.setHasFixedSize(true);
-        LinearLayoutManager llm = new LinearLayoutManager(this.getContext());
-        llm.setOrientation(LinearLayoutManager.VERTICAL);
 
-        recyclerView.setLayoutManager(llm);
+        layoutManager = new LinearLayoutManager(this.getContext());
 
-        FirebaseRecyclerOptions<User> options = new FirebaseRecyclerOptions.Builder<User>()
-                .setQuery(householdRef, User.class)
-                .build();
+        recyclerView.setLayoutManager(layoutManager);
 
-        adapter = new UserAdapter(getActivity(),options);
-        recyclerView.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+        mAdapter = new UserAdapter(this.getContext(), userList);
+        recyclerView.setAdapter(mAdapter);
 
+        householdRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                userList.clear();
+                for(DataSnapshot snap : snapshot.getChildren()){
+                    User member = snap.getValue(User.class);
+                    userList.add(member);
+                }
+
+                mAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getActivity(), "Failed to retrieve household members. Please try again later.", Toast.LENGTH_LONG).show();
+            }
+        });
         recyclerView.setItemAnimator(new DefaultItemAnimator());
+
         return rootView;
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        adapter.notifyDataSetChanged();
-//        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerFragmentHouseholdList);
-//        recyclerView.setHasFixedSize(true);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-//
-//        FirebaseRecyclerOptions<User> options = new FirebaseRecyclerOptions.Builder<User>()
-//                .setQuery(householdRef, User.class)
-//                .build();
-//
-//        adapter = new UserAdapter(getActivity(),options);
-//        recyclerView.setAdapter(adapter);
-//
-//        recyclerView.setItemAnimator(new DefaultItemAnimator());
-    }
-
-    public UserAdapter getAdapter(){
-        return adapter;
     }
 }

@@ -114,8 +114,9 @@ public class AddEditRewardActivity extends AppCompatActivity implements MemberAs
             MyApplication.getDbReference().child("Users").child(assignee).child("availableRewards").child(key).setValue(reward);
         }
 
-        Intent intent = new Intent(AddEditRewardActivity.this, RewardActivity.class);
-        startActivity(intent);
+//        Intent intent = new Intent(AddEditRewardActivity.this, RewardActivity.class);
+//        startActivity(intent);
+            finish();
     }
 
     private void fillMembersArray(){
