@@ -6,7 +6,7 @@ public class Task {
     private int points;
     private Date dueDate;
     private User userAssigned;
-    private boolean is_complete;
+    private boolean isComplete;
     private enum Frequency {oneTime, Weekly, Monthly};
 
     public Task(String name, String description, int points, Date dueDate, Frequency frequency ) {
@@ -16,7 +16,7 @@ public class Task {
         // this.frequency = frequency;
         this.dueDate = dueDate;
         this.userAssigned = null;
-        this.is_complete = false;
+        this.isComplete = false;
     }
 
     public String getName() {
@@ -33,5 +33,13 @@ public class Task {
 
     public void setDescription(String newDescription) {
         this.description = newDescription;
+    }
+
+    public void setUser(User newUser) {
+        this.userAssigned = newUser;
+    }
+
+    public void setIsComplete(boolean complete) {
+        this.isComplete = complete;
     }
 }
