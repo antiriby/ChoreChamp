@@ -81,24 +81,29 @@ public class FirstFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_first, container, false);
 
-//        recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerFragmentHouseholdList);
-//        recyclerView.setHasFixedSize(true);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerFragmentHouseholdList);
+        recyclerView.setHasFixedSize(true);
+        LinearLayoutManager llm = new LinearLayoutManager(this.getContext());
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
 
-//        FirebaseRecyclerOptions<User> options = new FirebaseRecyclerOptions.Builder<User>()
-//                .setQuery(householdRef, User.class)
-//                .build();
-//
-//        adapter = new UserAdapter(getActivity(),options);
-//        recyclerView.setAdapter(adapter);
-//
-//        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setLayoutManager(llm);
+
+        FirebaseRecyclerOptions<User> options = new FirebaseRecyclerOptions.Builder<User>()
+                .setQuery(householdRef, User.class)
+                .build();
+
+        adapter = new UserAdapter(getActivity(),options);
+        recyclerView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
         return rootView;
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        adapter.notifyDataSetChanged();
 //        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerFragmentHouseholdList);
 //        recyclerView.setHasFixedSize(true);
 //        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));

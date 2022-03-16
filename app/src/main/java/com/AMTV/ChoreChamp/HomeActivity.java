@@ -25,8 +25,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationBarView
     private User currentUser;
     final FragmentManager fragmentManager = getSupportFragmentManager();
 
-    //Intent Extras
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,14 +37,14 @@ public class HomeActivity extends AppCompatActivity implements NavigationBarView
         bottomNavigationView.setOnItemSelectedListener(this);
         bottomNavigationView.setSelectedItemId(R.id.family);
 
-        recyclerView = findViewById(R.id.recyclerHomeHouseholdList);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        FirebaseRecyclerOptions<User> options = new FirebaseRecyclerOptions.Builder<User>()
-                .setQuery(householdRef, User.class)
-                .build();
-        adapter = new UserAdapter(getApplicationContext(),options);
-        recyclerView.setAdapter(adapter);
+//        recyclerView = findViewById(R.id.recyclerHomeHouseholdList);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+//
+//        FirebaseRecyclerOptions<User> options = new FirebaseRecyclerOptions.Builder<User>()
+//                .setQuery(householdRef, User.class)
+//                .build();
+//        adapter = new UserAdapter(getApplicationContext(),options);
+//        recyclerView.setAdapter(adapter);
     }
     FirstFragment firstFragment = new FirstFragment();
     SecondFragment secondFragment = new SecondFragment();
@@ -58,11 +56,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationBarView
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.family:
-
-//                FirebaseRecyclerOptions<User> options = new FirebaseRecyclerOptions.Builder<User>()
-//                        .setQuery(householdRef, User.class)
-//                        .build();
-//                adapter = new UserAdapter(getApplicationContext(),options);
                 firstFragment = FirstFragment.newInstance(currentUser, adapter);
                 fragmentManager.beginTransaction().replace(R.id.bottomNavFragment, firstFragment).commit();
                 return true;
@@ -87,7 +80,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationBarView
     @Override protected void onStart()
     {
         super.onStart();
-        adapter.startListening();
+       //adapter.startListening();
     }
 
     // Function to tell the app to stop getting
@@ -95,6 +88,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationBarView
     @Override protected void onStop()
     {
         super.onStop();
-        adapter.stopListening();
+        //adapter.stopListening();
     }
 }

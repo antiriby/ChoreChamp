@@ -16,10 +16,12 @@ import java.io.Serializable;
 public class UserAdapter extends FirebaseRecyclerAdapter<User,UserAdapter.usersViewHolder> implements Serializable {
 
     private Context context;
-    public UserAdapter(@NonNull Context context, @NonNull FirebaseRecyclerOptions<User> options)
+    private FirebaseRecyclerOptions<User> userList;
+    public UserAdapter(@NonNull Context context, @NonNull FirebaseRecyclerOptions<User> userList)
     {
-        super(options);
+        super(userList);
         this.context = context;
+        this.userList = userList;
     }
 
     @Override
@@ -27,6 +29,11 @@ public class UserAdapter extends FirebaseRecyclerAdapter<User,UserAdapter.usersV
         holder.name.setText(model.getName());
         //TODO: add points to User Class and display in RecyclerView
         //holder.points.setText(model.getPoints());
+    }
+
+    @Override
+    public int getItemCount() {
+        return 0;
     }
 
     @NonNull
