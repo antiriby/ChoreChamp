@@ -3,7 +3,9 @@ package com.AMTV.ChoreChamp;
 import java.io.Serializable;
 
 public class User implements Serializable {
-    private final String name, email, role, householdId;
+    private String name, email, role, householdId;
+
+    public User(){}
 
     public User(String name, String email, Boolean admin, String householdId) {
         this.name = name;
@@ -15,6 +17,13 @@ public class User implements Serializable {
         } else {
             role = "Member";
         }
+    }
+
+    public User(String name, String email, String role, String householdId) {
+        this.name = name;
+        this.email = email;
+        this.role = role;
+        this.householdId = householdId;
     }
 
     public String getName() {

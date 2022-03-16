@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/family"
+        android:title="Family"
+        android:icon="@drawable/family_foreground" />
+    <item
+        android:id="@+id/tasks"
+        android:title="Tasks"
+        android:icon="@drawable/checkmark_foreground"/>
+    <item
+        android:id="@+id/rewards"
+        android:title="Rewards"
+        android:icon="@drawable/storefront_foreground"/>
+    <item
+        android:id="@+id/profile"
+        android:title="Profile"
+        android:icon="@drawable/profile_foreground"/>
+</menu>
