@@ -72,7 +72,11 @@ public class AddMemberActivity extends AppCompatActivity implements View.OnClick
                 break;
             case R.id.btnAddMemberNext:
                 createHousehold();
-                startActivity(new Intent(this, LoginActivity.class));
+                Intent login = new Intent(this, LoginActivity.class);
+                login.putExtra("HouseholdId", householdID);
+                login.putExtra("CurrentUser", currentUser);
+                login.putExtra("Household", household);
+                startActivity(login);
                 break;
         }
     }
@@ -84,25 +88,32 @@ public class AddMemberActivity extends AppCompatActivity implements View.OnClick
         Boolean role = admin.isChecked();
 
 
-        User user = new User(name, email, role, householdID);
         // Push new member to database
         mAuth.createUserWithEmailAndPassword(email,familyPassword)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            dbReference.child("Users").child(mAuth.getUid()).setValue(user);
+                            String userId = FirebaseAuth.getInstance().getUid();
+                            User user = new User(name, email, role, householdID, userId);
+
+                            dbReference.child("Users").child(userId).setValue(user);
+                            FirebaseAuth.getInstance().signOut();
+
                             editTextName.getText().clear();
                             editTextEmail.getText().clear();
 
                             // Add new member to the member ArrayList
                             members.add(user);
                             Toast.makeText(AddMemberActivity.this, "Member was successfully added to household!", Toast.LENGTH_LONG).show();
+
                         } else {
                             Toast.makeText(AddMemberActivity.this, "Something went wrong. Please try Again!", Toast.LENGTH_LONG).show();
+
                         }
                     }
                 });
+
     }
 
 
