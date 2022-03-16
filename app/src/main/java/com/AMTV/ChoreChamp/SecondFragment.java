@@ -41,12 +41,13 @@ public class SecondFragment extends Fragment {
 
     DatabaseReference dbReference;
     FirebaseUser user;
+
     String userId, householdId;
 
     boolean isAdmin = false;
 
     Button btnAdd;
-    List<Task> taskList = new ArrayList<>();
+    List<Task> taskList;
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -60,8 +61,6 @@ public class SecondFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
      * @return A new instance of fragment SecondFragment.
      */
     // TODO: Rename and change types and number of parameters
@@ -102,7 +101,7 @@ public class SecondFragment extends Fragment {
 
         recyclerView.setLayoutManager(layoutManager);
 
-        mAdapter = new RewardsAdapter(taskList, this.getContext());
+        mAdapter = new TaskAdapter(taskList, this.getContext());
         recyclerView.setAdapter(mAdapter);
 
         userId = MyApplication.getUserId();

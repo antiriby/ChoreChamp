@@ -7,13 +7,14 @@ public class Task {
     private Date dueDate;
     private User userAssigned;
     private boolean isComplete;
-    private enum Frequency {oneTime, Weekly, Monthly};
+    private Frequency frequency;
+//    private enum Frequency {oneTime, Weekly, Monthly};
 
-    public Task(String name, String description, int points, Date dueDate, Frequency frequency ) {
+    public Task(String name, String description, int points, Date dueDate) {
         this.name = name;
         this.description = description;
         this.points = points;
-        // this.frequency = frequency;
+        this.frequency = Frequency.oneTime;
         this.dueDate = dueDate;
         this.userAssigned = null;
         this.isComplete = false;

@@ -7,7 +7,7 @@
     tools:context=".TaskActivity">
 
     <EditText
-        android:id="@+id/editTextNumber"
+        android:id="@+id/editTaskPoints"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -17,7 +17,7 @@
         tools:layout_editor_absoluteY="109dp" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/editTaskName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -27,6 +27,7 @@
         tools:layout_editor_absoluteY="54dp" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/editTaskMemberList"
         android:layout_width="348dp"
         android:layout_height="47dp"
         tools:layout_editor_absoluteX="23dp"

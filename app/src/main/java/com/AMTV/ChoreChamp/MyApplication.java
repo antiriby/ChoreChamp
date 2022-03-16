@@ -6,6 +6,12 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+enum Frequency {
+    oneTime,
+    Weekly,
+    Monthly
+}
+
 public class MyApplication extends Application {
     private static boolean isAdmin = false;
     private static String userId, householdId = "";

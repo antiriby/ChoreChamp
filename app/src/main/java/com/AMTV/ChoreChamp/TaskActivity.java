@@ -11,7 +11,6 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -39,7 +38,7 @@ public class TaskActivity extends AppCompatActivity {
     boolean isAdmin = false;
 
     Button btnAdd;
-    List<Task> taskList = new ArrayList<>();
+    List<com.AMTV.ChoreChamp.Task> taskList;
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -55,7 +54,7 @@ public class TaskActivity extends AppCompatActivity {
             setContentView(R.layout.activity_task);
         }
 
-        recyclerView = findViewById(R.id.TaskList);
+        recyclerView = findViewById(R.id.taskList);
         recyclerView.setHasFixedSize(true);
 
         layoutManager = new LinearLayoutManager(this);
@@ -76,7 +75,7 @@ public class TaskActivity extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     taskList.clear();
                     for (DataSnapshot snapshot1 : snapshot.getChildren()) {
-                        Task ld = snapshot1.getValue(Task.class);
+                        com.AMTV.ChoreChamp.Task ld = snapshot1.getValue(com.AMTV.ChoreChamp.Task.class);
                         taskList.add(ld);
                     }
 
@@ -95,7 +94,7 @@ public class TaskActivity extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     taskList.clear();
                     for (DataSnapshot snapshot1 : snapshot.getChildren()) {
-                        Task ld = snapshot1.getValue(Task.class);
+                        com.AMTV.ChoreChamp.Task ld = snapshot1.getValue(Task.class);
                         taskList.add(ld);
                     }
 
