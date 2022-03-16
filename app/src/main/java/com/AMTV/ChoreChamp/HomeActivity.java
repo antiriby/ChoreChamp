@@ -54,7 +54,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationBarView
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.family:
-                firstFragment = FirstFragment.newInstance(adapter);
+                firstFragment = FirstFragment.newInstance();
                 fragmentManager.beginTransaction().replace(R.id.bottomNavFragment, firstFragment).commit();
                 return true;
             case R.id.tasks:

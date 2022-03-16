@@ -36,16 +36,8 @@ public class ThirdFragment extends Fragment {
 //    private static final String ARG_PARAM1 = "param1";
 //    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-//    private String mParam1;
-//    private String mParam2;
-
     DatabaseReference dbReference;
-    FirebaseUser user;
     String userId, householdId;
-
-    boolean isAdmin = false;
-
     Button btnAdd;
     List<Reward> rewardList = new ArrayList<>();
 
@@ -87,7 +79,6 @@ public class ThirdFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
         View rootView;
 
         if(MyApplication.isAdmin()){
@@ -100,12 +91,10 @@ public class ThirdFragment extends Fragment {
         recyclerView = rootView.findViewById(R.id.rewardsList);
         recyclerView.setHasFixedSize(true);
 
-        //layoutManager = new LinearLayoutManager(this);
         layoutManager = new LinearLayoutManager(this.getContext());
 
         recyclerView.setLayoutManager(layoutManager);
 
-        //mAdapter = new RewardsAdapter(rewardList, RewardActivity.this);
         mAdapter = new RewardsAdapter(rewardList, this.getContext());
         recyclerView.setAdapter(mAdapter);
 
@@ -151,16 +140,11 @@ public class ThirdFragment extends Fragment {
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-                    //Toast.makeText(RewardActivity.this, "Failed to update rewards list", Toast.LENGTH_LONG).show();
                     Toast.makeText(getActivity(), "Failed to update rewards list", Toast.LENGTH_LONG).show();
 
                 }
             });
         }
-
-
-
-
 
         // Only shows + button if admin
         if(MyApplication.isAdmin()){
