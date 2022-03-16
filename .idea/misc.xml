@@ -11,19 +11,8 @@
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/profile_background.xml" value="0.1" />
-        <entry key="..\:/Users/User/StudioProjects/ChoreChamp/app/src/main/res/drawable/ic_add_plus.xml" value="0.1805" />
-        <entry key="..\:/Users/User/StudioProjects/ChoreChamp/app/src/main/res/layout/activity_add_edit_reward.xml" value="0.264" />
-        <entry key="..\:/Users/User/StudioProjects/ChoreChamp/app/src/main/res/layout/activity_add_member.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/User/StudioProjects/ChoreChamp/app/src/main/res/layout/activity_admin_reward.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/User/StudioProjects/ChoreChamp/app/src/main/res/layout/activity_claim_reward.xml" value="0.16" />
-        <entry key="..\:/Users/User/StudioProjects/ChoreChamp/app/src/main/res/layout/activity_login.xml" value="0.1578125" />
-        <entry key="..\:/Users/User/StudioProjects/ChoreChamp/app/src/main/res/layout/activity_main.xml" value="0.1578125" />
-        <entry key="..\:/Users/User/StudioProjects/ChoreChamp/app/src/main/res/layout/activity_profile.xml" value="0.1578125" />
-        <entry key="..\:/Users/User/StudioProjects/ChoreChamp/app/src/main/res/layout/activity_register.xml" value="0.1578125" />
-        <entry key="..\:/Users/User/StudioProjects/ChoreChamp/app/src/main/res/layout/activity_reward.xml" value="0.12" />
-        <entry key="..\:/Users/User/StudioProjects/ChoreChamp/app/src/main/res/layout/family_member_assignment_list.xml" value="0.7194570135746606" />
-        <entry key="..\:/Users/User/StudioProjects/ChoreChamp/app/src/main/res/layout/reward.xml" value="0.2" />
         <entry key="app/src/main/res/layout/activity_add_member.xml" value="0.2234375" />
+        <entry key="app/src/main/res/layout/activity_admin_reward.xml" value="0.19384057971014493" />
         <entry key="app/src/main/res/layout/activity_home.xml" value="0.18793487548828125" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.3591485507246377" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.3591485507246377" />
@@ -37,6 +26,7 @@
         <entry key="app/src/main/res/layout/fragment_second2.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_third.xml" value="0.1" />
         <entry key="app/src/main/res/layout/household_list_item.xml" value="0.3095725902612659" />
+        <entry key="app/src/main/res/layout/reward.xml" value="0.19384057971014493" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.22" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1" />
       </map>

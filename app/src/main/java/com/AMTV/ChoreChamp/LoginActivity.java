@@ -136,7 +136,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             } else {
                                 MyApplication.setHouseholdId(String.valueOf(task.getResult().getValue()));
                                 //TODO: Change RewardActivity.class to HomeActivity.class
-                                startActivity(new Intent(LoginActivity.this, RewardActivity.class));
+                                startActivity(new Intent(LoginActivity.this, HomeActivity.class));
                             }
                         }
                     });
