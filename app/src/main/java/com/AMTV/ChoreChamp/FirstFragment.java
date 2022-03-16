@@ -25,11 +25,9 @@ public class FirstFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String CURRENT_USER = "currentUser";
     private static final String ADAPTER = "adapter";
 
     // TODO: Rename and change types of parameters
-    private User currentUser;
     private RecyclerView recyclerView;
     private DatabaseReference householdRef;
     private UserAdapter adapter;
@@ -47,10 +45,9 @@ public class FirstFragment extends Fragment {
      * @return A new instance of fragment FirstFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static FirstFragment newInstance(User currentUser, UserAdapter adapter) {
+    public static FirstFragment newInstance(UserAdapter adapter) {
         FirstFragment fragment = new FirstFragment();
         Bundle args = new Bundle();
-        args.putSerializable(CURRENT_USER,currentUser);
         args.putSerializable(ADAPTER,adapter);
         fragment.setArguments(args);
         return fragment;
@@ -60,12 +57,11 @@ public class FirstFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            currentUser = (User) getArguments().getSerializable(CURRENT_USER);
             //adapter = (UserAdapter) getArguments().getSerializable(ADAPTER);
         }
         householdRef = FirebaseDatabase.getInstance().getReference()
                 .child("Households")
-                .child(currentUser.getHouseholdId())
+                .child(MyApplication.getHouseholdId())
                 .child("members");
 
 //        FirebaseRecyclerOptions<User> options = new FirebaseRecyclerOptions.Builder<User>()

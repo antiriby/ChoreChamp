@@ -135,7 +135,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 Toast.makeText(LoginActivity.this, "Something went wrong. Please try Again!", Toast.LENGTH_LONG).show();
                             } else {
                                 MyApplication.setHouseholdId(String.valueOf(task.getResult().getValue()));
-//                                startActivity(new Intent(LoginActivity.this, ProfileActivity.class));
+                                //TODO: Change RewardActivity.class to HomeActivity.class
                                 startActivity(new Intent(LoginActivity.this, RewardActivity.class));
                             }
                         }

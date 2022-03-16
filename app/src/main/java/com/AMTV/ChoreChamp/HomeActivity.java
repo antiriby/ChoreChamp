@@ -22,16 +22,14 @@ public class HomeActivity extends AppCompatActivity implements NavigationBarView
     private UserAdapter adapter;
 
     private DatabaseReference householdRef;
-    private User currentUser;
     final FragmentManager fragmentManager = getSupportFragmentManager();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        currentUser= (User)getIntent().getSerializableExtra("CurrentUser");
 
-        householdRef = FirebaseDatabase.getInstance().getReference().child("Households").child(currentUser.getHouseholdId()).child("members");
+        householdRef = FirebaseDatabase.getInstance().getReference().child("Households").child(MyApplication.getHouseholdId()).child("members");
 
         bottomNavigationView = findViewById(R.id.bottomNav);
         bottomNavigationView.setOnItemSelectedListener(this);
@@ -56,7 +54,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationBarView
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.family:
-                firstFragment = FirstFragment.newInstance(currentUser, adapter);
+                firstFragment = FirstFragment.newInstance(adapter);
                 fragmentManager.beginTransaction().replace(R.id.bottomNavFragment, firstFragment).commit();
                 return true;
             case R.id.tasks:

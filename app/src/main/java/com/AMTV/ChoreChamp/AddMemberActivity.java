@@ -88,14 +88,12 @@ public class AddMemberActivity extends AppCompatActivity implements View.OnClick
         Boolean role = admin.isChecked();
 
 
-        User user = new User(name, email, role, householdID);
         // Push new member to database
         mAuth.createUserWithEmailAndPassword(email,familyPassword)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            dbReference.child("Users").child(mAuth.getUid()).setValue(user);
                             String userId = FirebaseAuth.getInstance().getUid();
                             User user = new User(name, email, role, householdID, userId);
 
