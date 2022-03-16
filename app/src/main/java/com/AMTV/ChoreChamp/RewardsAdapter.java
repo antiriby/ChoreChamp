@@ -46,8 +46,8 @@ public class RewardsAdapter extends RecyclerView.Adapter<RewardsAdapter.MyViewHo
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            tv_rewardName = itemView.findViewById(R.id.RewardListRewardName);
-            tv_rewardPoints = itemView.findViewById(R.id.RewardListRewardPoints);
+            tv_rewardName = itemView.findViewById(R.id.txtProfileHistoryName);
+            tv_rewardPoints = itemView.findViewById(R.id.txtProfileHistoryPoints);
         }
     }
 }

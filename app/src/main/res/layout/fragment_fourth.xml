@@ -10,16 +10,69 @@
     <!-- TODO: Update blank fragment layout -->
 
     <TextView
-        android:id="@+id/fourthFragment"
+        android:id="@+id/txtProfileName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="264dp"
+        android:layout_marginTop="13dp"
         android:text="Profile"
         android:textColor="#43a047"
         android:textSize="40sp"
         android:textStyle="italic|bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgProfileIcon" />
+
+    <ImageView
+        android:id="@+id/imgProfileIcon"
+        android:layout_width="107dp"
+        android:layout_height="89dp"
+        android:layout_marginTop="88dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/txtProfilePoints"
+        android:layout_width="86dp"
+        android:layout_height="48dp"
+        android:text="Points"
+        android:textAlignment="textStart"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtProfileName" />
+
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="409dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="12dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtProfilePoints" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerProfileHistory"
+        android:layout_width="410dp"
+        android:layout_height="415dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btnProfileLogout"
+        android:layout_width="80dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="244dp"
+        android:text="Logout"
+        android:textColor="#D61A1A"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.985"
+        app:layout_constraintStart_toEndOf="@+id/txtProfileName"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

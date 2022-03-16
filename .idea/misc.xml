@@ -23,11 +23,12 @@
         <entry key="app/src/main/res/layout/activity_task.xml" value="0.3917572463768116" />
         <entry key="app/src/main/res/layout/activity_welcome.xml" value="0.3591485507246377" />
         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/fragment_fourth.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_fourth.xml" value="0.19273529052734373" />
         <entry key="app/src/main/res/layout/fragment_second.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_second2.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_third.xml" value="0.1" />
         <entry key="app/src/main/res/layout/household_list_item.xml" value="0.3095725902612659" />
+        <entry key="app/src/main/res/layout/profile_history.xml" value="0.2477355072463768" />
         <entry key="app/src/main/res/layout/reward.xml" value="0.19384057971014493" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.22" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1" />

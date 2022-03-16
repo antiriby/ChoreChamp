@@ -2,51 +2,38 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/rewardLayout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/txtProfileHistoryPoints"
         android:layout_width="83dp"
         android:layout_height="40dp"
+        android:layout_marginStart="188dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
         android:text="Points"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/txtProfileHistoryName"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/txtProfileHistoryName"
         android:layout_width="81dp"
         android:layout_height="44dp"
+        android:layout_marginStart="28dp"
         android:layout_marginTop="16dp"
         android:text="Reward"
-        app:layout_constraintEnd_toStartOf="@+id/txtProfileHistoryPoints"
-        app:layout_constraintHorizontal_bias="0.287"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <View
         android:id="@+id/divider"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="12dp"
         android:background="?android:attr/listDivider"
-        app:layout_constraintTop_toBottomOf="@+id/txtProfileHistoryName"
-        tools:layout_editor_absoluteX="0dp" />
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="57dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.523"
-        app:srcCompat="@mipmap/checkmark_round"
-        tools:srcCompat="@drawable/checkmark_foreground" />
+        app:layout_constraintTop_toBottomOf="@+id/txtProfileHistoryName" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

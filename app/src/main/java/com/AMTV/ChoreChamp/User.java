@@ -51,6 +51,10 @@ public class User implements Serializable {
         this.role = role;
     }
 
+    public void setUid(String uid){
+        this.uid = uid;
+    }
+
     public void setPoints(int points) {
         this.points = points;
     }
@@ -72,12 +76,7 @@ public class User implements Serializable {
         return householdId;
     }
 
-
     public String getUid() { return uid; }
-
-    public void setUid(String uid){
-        this.uid = uid;
-    }
 
     public int getPoints() { return points; }
 }
