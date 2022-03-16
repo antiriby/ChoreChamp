@@ -18,6 +18,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -26,8 +31,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private Button signIn;
 
     private FirebaseAuth mAuth;
+    private DatabaseReference dbReference;
     private ProgressBar progressBar;
 
+    private String householdID;
+    private User currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +54,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         progressBar = (ProgressBar) findViewById(R.id.loginProBar);
 
         mAuth = FirebaseAuth.getInstance();
+        dbReference = FirebaseDatabase.getInstance().getReference();
     }
 
     @Override
@@ -96,10 +105,28 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    //redirect to user profile/homepage
-                    //TODO check if ProfileActivity object already exists. If so, DO NOT CREATE ANOTHER ACTIVITY
-                    // Double clicking on the login button creates two profile activities so find a wa to solve this issue
-                    startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                    if(getIntent().getExtras() != null) {
+                        householdID = getIntent().getStringExtra("HouseholdID");
+                        currentUser = (User)getIntent().getSerializableExtra("CurrentUser");
+                    } else {
+                        dbReference.child("Users").child(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                currentUser = dataSnapshot.getValue(User.class);
+                                householdID = currentUser.getHouseholdId();
+
+                                Intent home = new Intent(LoginActivity.this, HomeActivity.class);
+                                home.putExtra("HouseholdId", householdID);
+                                home.putExtra("CurrentUser", currentUser);
+                                startActivity(home);
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+                                System.out.println("The read failed: " + databaseError.getCode());
+                            }
+                        });
+                    }
                 } else {
                     Toast.makeText(LoginActivity.this, "Failed to login! Please check credentials", Toast.LENGTH_LONG).show();
                 }

@@ -2,55 +2,99 @@ package com.AMTV.ChoreChamp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
-public class HomeActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
+public class HomeActivity extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener {
 
-    BottomNavigationView bottomNavigationView;
+    private BottomNavigationView bottomNavigationView;
+    private RecyclerView recyclerView;
+    private UserAdapter adapter;
+
+    private DatabaseReference householdRef;
+    private User currentUser;
     final FragmentManager fragmentManager = getSupportFragmentManager();
 
+    //Intent Extras
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        currentUser= (User)getIntent().getSerializableExtra("CurrentUser");
+
+        householdRef = FirebaseDatabase.getInstance().getReference().child("Households").child(currentUser.getHouseholdId()).child("members");
 
         bottomNavigationView = findViewById(R.id.bottomNav);
         bottomNavigationView.setOnItemSelectedListener(this);
-
         bottomNavigationView.setSelectedItemId(R.id.family);
-    }
 
+        recyclerView = findViewById(R.id.recyclerHomeHouseholdList);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        FirebaseRecyclerOptions<User> options = new FirebaseRecyclerOptions.Builder<User>()
+                .setQuery(householdRef, User.class)
+                .build();
+        adapter = new UserAdapter(getApplicationContext(),options);
+        recyclerView.setAdapter(adapter);
+    }
     FirstFragment firstFragment = new FirstFragment();
     SecondFragment secondFragment = new SecondFragment();
     ThirdFragment thirdFragment = new ThirdFragment();
     FourthFragment fourthFragment = new FourthFragment();
 
-
+    //Bottom Navigation selection
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        Fragment fragment;
         switch (item.getItemId()){
             case R.id.family:
-                getSupportFragmentManager().beginTransaction().replace(R.id.bottomNavFragment, firstFragment).commit();
+
+//                FirebaseRecyclerOptions<User> options = new FirebaseRecyclerOptions.Builder<User>()
+//                        .setQuery(householdRef, User.class)
+//                        .build();
+//                adapter = new UserAdapter(getApplicationContext(),options);
+                firstFragment = FirstFragment.newInstance(currentUser, adapter);
+                fragmentManager.beginTransaction().replace(R.id.bottomNavFragment, firstFragment).commit();
                 return true;
             case R.id.tasks:
-                getSupportFragmentManager().beginTransaction().replace(R.id.bottomNavFragment, secondFragment).commit();
+                fragmentManager.beginTransaction().replace(R.id.bottomNavFragment, secondFragment).commit();
                 return true;
             case R.id.rewards:
-                fragment = thirdFragment;
-                getSupportFragmentManager().beginTransaction().replace(R.id.bottomNavFragment, thirdFragment).commit();
+                fragmentManager.beginTransaction().replace(R.id.bottomNavFragment, thirdFragment).commit();
                 return true;
             case R.id.profile:
-                getSupportFragmentManager().beginTransaction().replace(R.id.bottomNavFragment, fourthFragment).commit();
+                fragmentManager.beginTransaction().replace(R.id.bottomNavFragment, fourthFragment).commit();
                 return true;
         }
         return false;
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+        super.onPointerCaptureChanged(hasCapture);
+    }
+
+    @Override protected void onStart()
+    {
+        super.onStart();
+        adapter.startListening();
+    }
+
+    // Function to tell the app to stop getting
+    // data from database on stopping of the activity
+    @Override protected void onStop()
+    {
+        super.onStop();
+        adapter.stopListening();
     }
 }

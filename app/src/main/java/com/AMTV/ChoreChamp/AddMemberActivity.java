@@ -72,7 +72,11 @@ public class AddMemberActivity extends AppCompatActivity implements View.OnClick
                 break;
             case R.id.btnAddMemberNext:
                 createHousehold();
-                startActivity(new Intent(this, LoginActivity.class));
+                Intent login = new Intent(this, LoginActivity.class);
+                login.putExtra("HouseholdId", householdID);
+                login.putExtra("CurrentUser", currentUser);
+                login.putExtra("Household", household);
+                startActivity(login);
                 break;
         }
     }
