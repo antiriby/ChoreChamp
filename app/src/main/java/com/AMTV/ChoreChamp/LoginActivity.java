@@ -100,6 +100,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     //TODO check if ProfileActivity object already exists. If so, DO NOT CREATE ANOTHER ACTIVITY
                     // Double clicking on the login button creates two profile activities so find a wa to solve this issue
                     startActivity(new Intent(LoginActivity.this, ProfileActivity.class));
+//                    startActivity(new Intent(LoginActivity.this, RewardActivity.class));
                 } else {
                     Toast.makeText(LoginActivity.this, "Failed to login! Please check credentials", Toast.LENGTH_LONG).show();
                 }

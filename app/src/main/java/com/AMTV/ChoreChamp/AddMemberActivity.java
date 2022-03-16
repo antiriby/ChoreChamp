@@ -82,25 +82,29 @@ public class AddMemberActivity extends AppCompatActivity implements View.OnClick
         String email = editTextEmail.getText().toString().trim();
         Boolean role = false; //TODO: get value from Admin Radio Button
 
-
-        User user = new User(name, email, role, householdID);
         // Push new member to database
         mAuth.createUserWithEmailAndPassword(email,familyPassword)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            dbReference.child("Users").push().setValue(user);
+                            String userId = FirebaseAuth.getInstance().getUid();
+                            User user = new User(name, email, role, householdID, userId);
+
+                            dbReference.child("Users").child(userId).setValue(user);
+                            FirebaseAuth.getInstance().signOut();
+
                             editTextName.getText().clear();
                             editTextEmail.getText().clear();
+
+                            // Add new member to the member ArrayList
+                            members.add(user);
                         } else {
                             Toast.makeText(AddMemberActivity.this, "Something went wrong. Please try Again!", Toast.LENGTH_LONG).show();
 
                         }
                     }
                 });
-        // Add new member to the member ArrayList
-        members.add(user);
 
     }
 
