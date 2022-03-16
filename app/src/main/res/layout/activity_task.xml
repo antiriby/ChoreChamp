@@ -47,9 +47,10 @@
         android:id="@+id/radioButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="132dp"
         android:text="Always Available?"
-        tools:layout_editor_absoluteX="132dp"
-        tools:layout_editor_absoluteY="224dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="231dp" />
 
     <Button
         android:id="@+id/button"
@@ -82,12 +83,6 @@
             android:text="Wednesday" />
     </com.google.android.material.tabs.TabLayout>
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragment_container_view"
-        android:layout_width="411dp"
-        android:layout_height="124dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tabLayout" />
-<!--        android:name="com.example.ExampleFragment" />-->
+    <!--        android:name="com.example.ExampleFragment" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

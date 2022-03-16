@@ -6,24 +6,36 @@
     android:layout_height="match_parent"
     tools:context=".HomeActivity">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/homeProfiles"
-        android:layout_width="325dp"
-        android:layout_height="116dp"
-        tools:layout_editor_absoluteX="43dp"
-        tools:layout_editor_absoluteY="106dp" />
-
-    <FrameLayout
-        android:id="@+id/flFragment"
-        android:layout_width="412dp"
-        android:layout_height="54dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bottomNavFragment"
+        android:layout_width="410dp"
+        android:layout_height="669dp"
+        android:layout_marginBottom="64dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" >
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent">
 
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </FrameLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/homeProfiles"
+            android:layout_width="325dp"
+            android:layout_height="116dp"
+            android:layout_marginTop="276dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.505"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNav"
+        android:layout_width="415dp"
+        android:layout_height="66dp"
+        app:itemIconSize="48dp"
+        app:labelVisibilityMode="auto"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_nav_menu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

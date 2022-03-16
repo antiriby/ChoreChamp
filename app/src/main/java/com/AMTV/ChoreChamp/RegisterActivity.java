@@ -122,33 +122,25 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            User user = new User(name, email, adminRole);
-                            FirebaseDatabase.getInstance().getReference("Users")
-                                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                    .push()
-                                    .setValue(user)
-                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
-                                            if (task.isSuccessful()) {
-                                                DatabaseReference householdRef = dbReference.child("Households");
-                                                householdRef.push().setValue(new Household(householdName,familyPassword,user));
+                        // Create the household id using push()
+                        if (task.isSuccessful()){
 
-                                                Toast.makeText(RegisterActivity.this, "Household has been created successfully!", Toast.LENGTH_LONG).show();
-                                                progressBar.setVisibility(View.GONE);
+                            DatabaseReference householdRef =  dbReference.child("Households").push();
+                            User user = new User(name, email, adminRole, householdRef.getKey());
+                            dbReference.child("Users").child(mAuth.getCurrentUser().getUid()).setValue(user);
 
-                                                //redirect to Login layout by closing this activity
-                                                finish();
-                                            } else {
-                                                Toast.makeText(RegisterActivity.this, "Something went wrong. Please try Again!", Toast.LENGTH_LONG).show();
-                                                progressBar.setVisibility(View.GONE);
-                                            }
-                                        }
-                                    });
+                            Household household = new Household(householdName,familyPassword,user);
+
+                            Intent addMembers = new Intent(RegisterActivity.this, AddMemberActivity.class);
+                            addMembers.putExtra("Household", household);
+                            addMembers.putExtra("HouseholdID", householdRef.getKey());
+                            addMembers.putExtra("CurrentUser", user);
+                            addMembers.putExtra("FamilyPassword", familyPassword);
+
+                            startActivity(addMembers);
 
                         } else {
-                            Toast.makeText(RegisterActivity.this, "Failed to register user. Try Again!", Toast.LENGTH_LONG).show();
+                            Toast.makeText(RegisterActivity.this, "Something went wrong. Please try Again!", Toast.LENGTH_LONG).show();
                             progressBar.setVisibility(View.GONE);
                         }
                     }

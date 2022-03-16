@@ -29,15 +29,14 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-
         user = FirebaseAuth.getInstance().getCurrentUser();
         dbReference = FirebaseDatabase.getInstance().getReference();
-
         userId = user.getUid();
 
         final TextView firstNameTextView = (TextView) findViewById(R.id.txtProfileFirstName);
         final TextView lastNameTextView = (TextView) findViewById(R.id.txtProfileLastName);
         final TextView emailTextView = (TextView) findViewById(R.id.txtProfileEmail);
+        final TextView householdSizeTextView = (TextView) findViewById(R.id.txtProfileHouseholdSize);
 
         dbReference.child("Users").child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -48,9 +47,12 @@ public class ProfileActivity extends AppCompatActivity {
                     String firstName = userProfile.getName();
                     String lastName = userProfile.getRole();
                     String email = userProfile.getEmail();
+                    String householdId = userProfile.getHouseholdId();
+
                     firstNameTextView.setText("First Name: "+ firstName);
                     lastNameTextView.setText("Last Name: "+ lastName);
                     emailTextView.setText("Email: " + email);
+                    householdSizeTextView.setText("Household ID: " + householdId);
 
                 }
             }
