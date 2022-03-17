@@ -54,7 +54,7 @@ public class AddMemberActivity extends AppCompatActivity implements View.OnClick
         admin = (Switch) findViewById(R.id.switchAddMemberAdmin);
         admin.setOnClickListener(this);
 
-        householdID = (getIntent().getStringExtra("HouseholdID")).substring(1);
+        householdID = getIntent().getStringExtra("HouseholdID");
         familyPassword = getIntent().getStringExtra("FamilyPassword");
         currentUser = (User)getIntent().getSerializableExtra("CurrentUser");
         household = (Household) getIntent().getSerializableExtra("Household");

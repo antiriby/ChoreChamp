@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RegisterActivity">
+    tools:context=".RegisterActivity"
+    tools:visibility="visible">
 
     <EditText
         android:id="@+id/txtRegisterHouseholdName"
@@ -72,19 +73,6 @@
         app:layout_constraintTop_toBottomOf="@+id/txtRegisterFamilyPassword"
         app:layout_constraintVertical_bias="0.415" />
 
-    <ProgressBar
-        android:id="@+id/registrationProgressBar"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.187" />
-
     <EditText
         android:id="@+id/txtRegisterConfirmPassword"
         android:layout_width="wrap_content"
@@ -93,19 +81,180 @@
         android:ems="10"
         android:hint="Confirm Password"
         android:inputType="textPassword"
+        android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtRegisterFamilyPassword" />
 
     <ImageButton
-        android:id="@+id/btnRegisterProfileImage"
-        android:layout_width="119dp"
-        android:layout_height="107dp"
+        android:id="@+id/imgRegisterRedThumb"
+        android:layout_width="110dp"
+        android:layout_height="90dp"
+        android:background="@mipmap/red_thumb_foreground"
+        android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/txtRegisterHouseholdName"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.481"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.494"
-        tools:srcCompat="@tools:sample/avatars" />
+        app:layout_constraintVertical_bias="0.3"
+        tools:ignore="SpeakableTextPresentCheck"
+        tools:srcCompat="@mipmap/red_thumb_foreground" />
+
+    <ImageButton
+        android:id="@+id/imgRegisterOrangeThumb"
+        android:layout_width="110dp"
+        android:layout_height="90dp"
+        android:background="@mipmap/orange_thumb_foreground"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/txtRegisterHouseholdName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.481"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.3"
+        tools:ignore="SpeakableTextPresentCheck"
+        tools:srcCompat="@mipmap/orange_thumb_foreground" />
+
+    <ImageButton
+        android:id="@+id/imgRegisterGoldThumb"
+        android:layout_width="110dp"
+        android:layout_height="90dp"
+        android:background="@mipmap/gold_thumb_foreground"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/txtRegisterHouseholdName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.481"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.3"
+        tools:ignore="SpeakableTextPresentCheck"
+        tools:srcCompat="@mipmap/gold_thumb_foreground" />
+
+    <ImageButton
+        android:id="@+id/imgRegisterGreenThumb"
+        android:layout_width="110dp"
+        android:layout_height="90dp"
+        android:background="@mipmap/green_thumb_foreground"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/txtRegisterHouseholdName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.481"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.3"
+        tools:ignore="SpeakableTextPresentCheck"
+        tools:srcCompat="@mipmap/green_thumb_foreground" />
+
+    <ImageButton
+        android:id="@+id/imgRegisterBlueThumb"
+        android:layout_width="189dp"
+        android:layout_height="189dp"
+        android:layout_marginBottom="28dp"
+        android:background="@mipmap/blue_thumb_foreground"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/txtRegisterHouseholdName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.459"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="SpeakableTextPresentCheck"
+        tools:srcCompat="@mipmap/blue_thumb_foreground" />
+
+    <ImageButton
+        android:id="@+id/imgRegisterVioletThumb"
+        android:layout_width="190dp"
+        android:layout_height="190dp"
+        android:layout_marginBottom="28dp"
+        android:background="@mipmap/violet_thumb_foreground"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/txtRegisterHouseholdName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.457"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="SpeakableTextPresentCheck"
+        tools:srcCompat="@mipmap/violet_thumb_foreground" />
+
+    <Button
+        android:id="@+id/btnRegisterRed"
+        android:layout_width="22dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="84dp"
+        android:backgroundTint="#FF1616"
+        android:text="Red"
+        app:cornerRadius="@android:dimen/app_icon_size"
+        app:icon="@drawable/roundbutton"
+        app:iconTint="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.216" />
+
+    <Button
+        android:id="@+id/btnRegisterOrange"
+        android:layout_width="22dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="25dp"
+        android:backgroundTint="#FF914D"
+        android:text="Orange"
+        app:cornerRadius="@android:dimen/app_icon_size"
+        app:icon="@drawable/roundbutton"
+        app:iconTint="@color/black"
+        app:layout_constraintStart_toEndOf="@+id/btnRegisterRed"
+        app:layout_constraintTop_toTopOf="@+id/btnRegisterRed" />
+
+    <Button
+        android:id="@+id/btnRegisterGold"
+        android:layout_width="22dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="25dp"
+        android:backgroundTint="#FFBD59"
+        android:text="Gold"
+        app:cornerRadius="@android:dimen/app_icon_size"
+        app:icon="@drawable/roundbutton"
+        app:iconTint="@color/black"
+        app:layout_constraintStart_toEndOf="@+id/btnRegisterOrange"
+        app:layout_constraintTop_toTopOf="@+id/btnRegisterOrange"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <Button
+        android:id="@+id/btnRegisterGreen"
+        android:layout_width="22dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="25dp"
+        android:backgroundTint="#008037"
+        android:text="Green"
+        app:cornerRadius="@android:dimen/app_icon_size"
+        app:icon="@drawable/roundbutton"
+        app:iconTint="@color/black"
+        app:layout_constraintStart_toEndOf="@+id/btnRegisterGold"
+        app:layout_constraintTop_toTopOf="@+id/btnRegisterGold"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <Button
+        android:id="@+id/btnRegisterBlue"
+        android:layout_width="22dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="25dp"
+        android:backgroundTint="#004AAD"
+        android:text="Blue"
+        app:cornerRadius="@android:dimen/app_icon_size"
+        app:icon="@drawable/roundbutton"
+        app:iconTint="@color/black"
+        app:layout_constraintStart_toEndOf="@+id/btnRegisterGreen"
+        app:layout_constraintTop_toTopOf="@+id/btnRegisterGreen" />
+
+    <Button
+        android:id="@+id/btnRegisterViolet"
+        android:layout_width="22dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="25dp"
+        android:backgroundTint="#8C52FF"
+        android:text="Violet"
+        app:cornerRadius="@android:dimen/app_icon_size"
+        app:icon="@drawable/roundbutton"
+        app:iconTint="@color/black"
+        app:layout_constraintStart_toEndOf="@+id/btnRegisterBlue"
+        app:layout_constraintTop_toTopOf="@+id/btnRegisterBlue"
+        tools:ignore="TouchTargetSizeCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
