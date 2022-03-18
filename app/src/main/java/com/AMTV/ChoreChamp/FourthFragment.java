@@ -78,7 +78,7 @@ public class FourthFragment extends Fragment implements View.OnClickListener {
         nameTextView = rootView.findViewById(R.id.txtProfileName);
         pointsTextView = rootView.findViewById(R.id.txtProfilePoints);
         logoutButton = rootView.findViewById(R.id.btnProfileLogout);
-
+        profileImgView = rootView.findViewById(R.id.imgProfileIcon);
         logoutButton.setOnClickListener(this);
 
         //Add completed tasks field to User
@@ -87,6 +87,8 @@ public class FourthFragment extends Fragment implements View.OnClickListener {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 currentUser = snapshot.getValue(User.class);
                 nameTextView.setText(currentUser.getName());
+                profileImgView.setImageResource(currentUser.getProfileIconId());
+                //TODO: Display task/reward history
             }
 
             @Override

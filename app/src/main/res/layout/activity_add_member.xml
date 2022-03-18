@@ -6,11 +6,114 @@
     android:layout_height="match_parent"
     tools:context=".AddMemberActivity">
 
+    <Button
+        android:id="@+id/btnAddMemberRed"
+        android:layout_width="22dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="84dp"
+        android:backgroundTint="#FF1616"
+        android:text="Red"
+        app:cornerRadius="@android:dimen/app_icon_size"
+        app:icon="@drawable/roundbutton"
+        app:iconTint="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgAddMemberIconView"
+        app:layout_constraintVertical_bias="0.064" />
+
+    <Button
+        android:id="@+id/btnAddMemberBlue"
+        android:layout_width="22dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="25dp"
+        android:backgroundTint="#004AAD"
+        android:text="Blue"
+        app:cornerRadius="@android:dimen/app_icon_size"
+        app:icon="@drawable/roundbutton"
+        app:iconTint="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/btnAddMemberRed"
+        app:layout_constraintStart_toEndOf="@+id/btnAddMemberGreen"
+        app:layout_constraintTop_toTopOf="@+id/btnAddMemberRed" />
+
+    <Button
+        android:id="@+id/btnAddMemberGreen"
+        android:layout_width="22dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="4dp"
+        android:backgroundTint="#008037"
+        android:text="Green"
+        app:cornerRadius="@android:dimen/app_icon_size"
+        app:icon="@drawable/roundbutton"
+        app:iconTint="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/btnAddMemberRed"
+        app:layout_constraintStart_toEndOf="@+id/btnAddMemberGold"
+        app:layout_constraintTop_toTopOf="@+id/btnAddMemberRed"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <Button
+        android:id="@+id/btnAddMemberGold"
+        android:layout_width="22dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="25dp"
+        android:backgroundTint="#FFBD59"
+        android:text="Gold"
+        app:cornerRadius="@android:dimen/app_icon_size"
+        app:icon="@drawable/roundbutton"
+        app:iconTint="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/btnAddMemberRed"
+        app:layout_constraintStart_toEndOf="@+id/btnAddMemberOrange"
+        app:layout_constraintTop_toTopOf="@+id/btnAddMemberRed"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <Button
+        android:id="@+id/btnAddMemberOrange"
+        android:layout_width="22dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="25dp"
+        android:backgroundTint="#FF914D"
+        android:text="Orange"
+        app:cornerRadius="@android:dimen/app_icon_size"
+        app:icon="@drawable/roundbutton"
+        app:iconTint="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/btnAddMemberRed"
+        app:layout_constraintStart_toEndOf="@+id/btnAddMemberRed"
+        app:layout_constraintTop_toTopOf="@+id/btnAddMemberRed" />
+
+    <Button
+        android:id="@+id/btnAddMemberViolet"
+        android:layout_width="22dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="25dp"
+        android:backgroundTint="#8C52FF"
+        android:text="Violet"
+        app:cornerRadius="@android:dimen/app_icon_size"
+        app:icon="@drawable/roundbutton"
+        app:iconTint="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/btnAddMemberRed"
+        app:layout_constraintStart_toEndOf="@+id/btnAddMemberBlue"
+        app:layout_constraintTop_toTopOf="@+id/btnAddMemberRed"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <ImageView
+        android:id="@+id/imgAddMemberIconView"
+        android:layout_width="300px"
+        android:layout_height="300px"
+        android:layout_marginTop="80dp"
+        android:background="@drawable/icon_frame"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.508"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="SpeakableTextPresentCheck"
+        tools:srcCompat="@mipmap/red_thumb_foreground" />
+
     <EditText
         android:id="@+id/txtAddMemberName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="216dp"
+        android:layout_marginTop="288dp"
         android:ems="10"
         android:hint="Name"
         android:inputType="textPersonName"
@@ -38,18 +141,18 @@
         android:id="@+id/btnAddMemberAddAnother"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="476dp"
+        android:layout_marginTop="16dp"
         android:text="Add Another"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/switchAddMemberAdmin" />
 
     <Button
-        android:id="@+id/btnAddMemberNext"
+        android:id="@+id/btnAddMemberFinish"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="26dp"
-        android:text="Next"
+        android:text="Finish"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnAddMemberAddAnother" />

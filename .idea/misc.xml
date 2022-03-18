@@ -10,6 +10,7 @@
         <entry key="app/src/main/res/drawable/ic_checkmark_background.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/icon_frame.xml" value="0.103" />
         <entry key="app/src/main/res/drawable/profile_background.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/roundbutton.xml" value="0.103" />
         <entry key="app/src/main/res/layout/activity_add_edit_reward.xml" value="0.19384057971014493" />
