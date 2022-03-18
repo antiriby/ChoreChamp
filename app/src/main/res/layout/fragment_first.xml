@@ -11,7 +11,7 @@
         android:id="@+id/recyclerFragmentHouseholdList"
         android:layout_width="404dp"
         android:layout_height="636dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="70dp"
         android:visibility="visible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

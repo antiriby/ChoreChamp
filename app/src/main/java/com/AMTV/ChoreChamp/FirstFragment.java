@@ -3,14 +3,19 @@ package com.AMTV.ChoreChamp;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -60,8 +65,23 @@ public class FirstFragment extends Fragment {
     }
 
     @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.toolbar_add, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Set the toolbar
+        setHasOptionsMenu(true);
+        ((HomeActivity) getActivity()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.settings);// set drawable icon
+        ((HomeActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((TextView)((HomeActivity) getActivity()).findViewById(R.id.toolbar_title)).setText("FAMILY");
+
+
+
         if (getArguments() != null) {
             //adapter = (UserAdapter) getArguments().getSerializable(ADAPTER);
         }

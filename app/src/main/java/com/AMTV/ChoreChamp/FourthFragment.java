@@ -5,8 +5,11 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -47,8 +50,21 @@ public class FourthFragment extends Fragment {
     }
 
     @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.toolbar_edit, menu); //TODO change menu
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Set the toolbar
+        ((HomeActivity) getActivity()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.settings);// set drawable icon
+        ((HomeActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((TextView)((HomeActivity) getActivity()).findViewById(R.id.toolbar_title)).setText(MyApplication.getUserName().toUpperCase());
+        setHasOptionsMenu(true);
+
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
