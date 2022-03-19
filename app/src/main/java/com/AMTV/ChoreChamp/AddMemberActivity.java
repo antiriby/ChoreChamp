@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -75,6 +74,7 @@ public class AddMemberActivity extends AppCompatActivity implements View.OnClick
 
         //Setup Icon View
         profileIcon = (ImageView)findViewById(R.id.imgAddMemberIconView);
+        profileIcon.setImageResource(DEFAULT_ICON_ID);
 
         //Setup Icon Color Buttons
         redButton = (Button) findViewById(R.id.btnAddMemberRed);
@@ -115,34 +115,36 @@ public class AddMemberActivity extends AppCompatActivity implements View.OnClick
                 login.putExtra("Household", household);
                 startActivity(login);
                 break;
-            case R.id.btnRegisterRed:
+            case R.id.btnAddMemberRed:
                 profileIconId = MyApplication.getRedThumbId();
-                selectIcon();
+                selectProfileIcon();
                 break;
-            case R.id.btnRegisterOrange:
+            case R.id.btnAddMemberOrange:
                 profileIconId = MyApplication.getOrangeThumbId();
-                selectIcon();
+                selectProfileIcon();
                 break;
-            case R.id.btnRegisterGold:
+            case R.id.btnAddMemberGold:
                 profileIconId = MyApplication.getGoldThumbId();
-                selectIcon();
+                selectProfileIcon();
                 break;
-            case R.id.btnRegisterGreen:
+            case R.id.btnAddMemberGreen:
                 profileIconId = MyApplication.getGreenThumbId();
-                selectIcon();
+                selectProfileIcon();
                 break;
-            case R.id.btnRegisterBlue:
+            case R.id.btnAddMemberBlue:
                 profileIconId = MyApplication.getBlueThumbId();
-                selectIcon();
+                selectProfileIcon();
                 break;
-            case R.id.btnRegisterViolet:
+            case R.id.btnAddMemberViolet:
                 profileIconId = MyApplication.getVioletThumbId();
-                selectIcon();
+                selectProfileIcon();
                 break;
         }
     }
 
-    private void selectIcon(){
+    private void selectProfileIcon(){
+        //TODO: only select icon if it's not already being used by another member in the household
+        //TODO: display error Toast if icon is already taken
         profileIcon.setImageResource(profileIconId);
         profileIcon.getLayoutParams().width = ICON_WIDTH;
         profileIcon.getLayoutParams().height = ICON_HEIGHT;

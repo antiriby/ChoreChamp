@@ -87,6 +87,7 @@ public class FourthFragment extends Fragment implements View.OnClickListener {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 currentUser = snapshot.getValue(User.class);
                 nameTextView.setText(currentUser.getName());
+                pointsTextView.setText(currentUser.getPoints() + "pts");
                 profileImgView.setImageResource(currentUser.getProfileIconId());
                 //TODO: Display task/reward history
             }
