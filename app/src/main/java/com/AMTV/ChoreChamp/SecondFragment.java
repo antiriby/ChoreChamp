@@ -47,12 +47,25 @@ public class SecondFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_second2, container, false);
 
+        TextView emptyMessage = rootView.findViewById(R.id.emptyTaskListMessage);
+
+
+
+
         btnAdd = (ImageButton) rootView.findViewById(R.id.btnAddTask);
 
         if(MyApplication.isAdmin()){
             btnAdd.setVisibility(View.VISIBLE);
+
+            //TODO Uncomment when task list stuff added
+//        if(taskList.size() > 0){
+//            emptyMessage.setVisibility(View.INVISIBLE);
+//        }else{
+            emptyMessage.setVisibility(View.VISIBLE);
+//        }
         }else{
             btnAdd.setVisibility(View.INVISIBLE);
+            emptyMessage.setVisibility(View.INVISIBLE);
         }
 
         return rootView;
