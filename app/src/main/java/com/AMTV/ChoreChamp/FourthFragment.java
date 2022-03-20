@@ -50,20 +50,9 @@ public class FourthFragment extends Fragment {
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.toolbar_edit, menu); //TODO change menu
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Set the toolbar
-        ((HomeActivity) getActivity()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.settings);// set drawable icon
-        ((HomeActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        ((TextView)((HomeActivity) getActivity()).findViewById(R.id.toolbar_title)).setText(MyApplication.getUserName().toUpperCase());
-        setHasOptionsMenu(true);
 
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
@@ -75,6 +64,14 @@ public class FourthFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_fourth, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_fourth, container, false);
+
+        // Set the page's title to the current user's name
+        ((TextView) rootView.findViewById(R.id.profileTitle)).setText(MyApplication.getUserName().toUpperCase());
+
+        // Set toolbar buttons
+
+
+        return rootView;
     }
 }

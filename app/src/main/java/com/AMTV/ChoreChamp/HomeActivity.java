@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,11 +32,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationBarView
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
-        // Toolbar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         householdRef = FirebaseDatabase.getInstance().getReference().child("Households").child(MyApplication.getHouseholdId()).child("members");
 
@@ -88,4 +84,5 @@ public class HomeActivity extends AppCompatActivity implements NavigationBarView
         super.onStop();
         //adapter.stopListening();
     }
+
 }
