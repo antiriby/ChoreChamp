@@ -32,7 +32,7 @@ public class RewardsAdapter extends RecyclerView.Adapter<RewardsAdapter.MyViewHo
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.tv_rewardName.setText(rewardList.get(position).getName());
-        holder.tv_rewardPoints.setText(String.valueOf(rewardList.get(position).getPoints()));
+        holder.tv_rewardPoints.setText(String.valueOf(rewardList.get(position).getPoints()) + "pts");
     }
 
     @Override

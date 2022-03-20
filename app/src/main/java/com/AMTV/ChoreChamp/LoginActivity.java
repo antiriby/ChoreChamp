@@ -128,6 +128,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         }
                     });
 
+                    MyApplication.getDbReference().child("Users").child(userId).child("name").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DataSnapshot> task) {
+                            if (!task.isSuccessful()) {
+                                Toast.makeText(LoginActivity.this, "Something went wrong!", Toast.LENGTH_LONG).show();
+                            } else {
+                                MyApplication.setUserName((String) task.getResult().getValue());
+
+                            }
+                        }
+                    });
+
                     MyApplication.getDbReference().child("Users").child(userId).child("householdId").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DataSnapshot> task) {
