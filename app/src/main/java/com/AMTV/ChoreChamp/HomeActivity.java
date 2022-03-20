@@ -1,12 +1,16 @@
 package com.AMTV.ChoreChamp;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -35,14 +39,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationBarView
         bottomNavigationView.setOnItemSelectedListener(this);
         bottomNavigationView.setSelectedItemId(R.id.family);
 
-//        recyclerView = findViewById(R.id.recyclerHomeHouseholdList);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-//
-//        FirebaseRecyclerOptions<User> options = new FirebaseRecyclerOptions.Builder<User>()
-//                .setQuery(householdRef, User.class)
-//                .build();
-//        adapter = new UserAdapter(getApplicationContext(),options);
-//        recyclerView.setAdapter(adapter);
     }
     FirstFragment firstFragment = new FirstFragment();
     SecondFragment secondFragment = new SecondFragment();
@@ -55,16 +51,16 @@ public class HomeActivity extends AppCompatActivity implements NavigationBarView
         switch (item.getItemId()){
             case R.id.family:
                 firstFragment = FirstFragment.newInstance();
-                fragmentManager.beginTransaction().replace(R.id.bottomNavFragment, firstFragment).commit();
+                fragmentManager.beginTransaction().replace(R.id.fram, firstFragment).commit();
                 return true;
             case R.id.tasks:
-                fragmentManager.beginTransaction().replace(R.id.bottomNavFragment, secondFragment).commit();
+                fragmentManager.beginTransaction().replace(R.id.fram, secondFragment).commit();
                 return true;
             case R.id.rewards:
-                fragmentManager.beginTransaction().replace(R.id.bottomNavFragment, thirdFragment).commit();
+                fragmentManager.beginTransaction().replace(R.id.fram, thirdFragment).commit();
                 return true;
             case R.id.profile:
-                fragmentManager.beginTransaction().replace(R.id.bottomNavFragment, fourthFragment).commit();
+                fragmentManager.beginTransaction().replace(R.id.fram, fourthFragment).commit();
                 return true;
         }
         return false;
@@ -88,4 +84,5 @@ public class HomeActivity extends AppCompatActivity implements NavigationBarView
         super.onStop();
         //adapter.stopListening();
     }
+
 }
