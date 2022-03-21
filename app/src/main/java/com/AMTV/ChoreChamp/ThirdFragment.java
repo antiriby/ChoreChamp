@@ -4,16 +4,24 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -31,22 +39,10 @@ import java.util.List;
  */
 public class ThirdFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-//    private static final String ARG_PARAM1 = "param1";
-//    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-//    private String mParam1;
-//    private String mParam2;
-
     DatabaseReference dbReference;
-    FirebaseUser user;
     String userId, householdId;
-
-    boolean isAdmin = false;
-
-    Button btnAdd;
+    ImageButton btnAdd;
+    TextView tvTitle;
     List<Reward> rewardList = new ArrayList<>();
 
     private RecyclerView recyclerView;
@@ -63,12 +59,9 @@ public class ThirdFragment extends Fragment {
      *
      * @return A new instance of fragment ThirdFragment.
      */
-    // TODO: Rename and change types and number of parameters
     public static ThirdFragment newInstance() {
         ThirdFragment fragment = new ThirdFragment();
         Bundle args = new Bundle();
-//        args.putString(ARG_PARAM1, param1);
-//        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -76,6 +69,11 @@ public class ThirdFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        setHasOptionsMenu(true);
+        // Set the toolbar
+
+
+
         if (getArguments() != null) {
 //            mParam1 = getArguments().getString(ARG_PARAM1);
 //            mParam2 = getArguments().getString(ARG_PARAM2);
@@ -87,7 +85,6 @@ public class ThirdFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
         View rootView;
 
         if(MyApplication.isAdmin()){
@@ -100,12 +97,10 @@ public class ThirdFragment extends Fragment {
         recyclerView = rootView.findViewById(R.id.rewardsList);
         recyclerView.setHasFixedSize(true);
 
-        //layoutManager = new LinearLayoutManager(this);
         layoutManager = new LinearLayoutManager(this.getContext());
 
         recyclerView.setLayoutManager(layoutManager);
 
-        //mAdapter = new RewardsAdapter(rewardList, RewardActivity.this);
         mAdapter = new RewardsAdapter(rewardList, this.getContext());
         recyclerView.setAdapter(mAdapter);
 
@@ -151,28 +146,22 @@ public class ThirdFragment extends Fragment {
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-                    //Toast.makeText(RewardActivity.this, "Failed to update rewards list", Toast.LENGTH_LONG).show();
                     Toast.makeText(getActivity(), "Failed to update rewards list", Toast.LENGTH_LONG).show();
 
                 }
             });
         }
 
-
-
-
-
         // Only shows + button if admin
         if(MyApplication.isAdmin()){
-            btnAdd = rootView.findViewById(R.id.btnRewardAdd);
+            btnAdd = rootView.findViewById(R.id.btnAddReward);
+
 
             btnAdd.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //Intent intent = new Intent(RewardActivity.this, AddEditRewardActivity.class);
-                    Intent intent = new Intent(getActivity(), AddEditRewardActivity.class);
-
-                    startActivity(intent);
+                    AddEditRewardFragment addEditRewardFragment = new AddEditRewardFragment();
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fram, addEditRewardFragment).commit();
                 }
             });
         }

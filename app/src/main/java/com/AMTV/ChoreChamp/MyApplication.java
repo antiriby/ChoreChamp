@@ -14,7 +14,7 @@ enum Frequency {
 
 public class MyApplication extends Application {
     private static boolean isAdmin = false;
-    private static String userId, householdId = "";
+    private static String userId, householdId, userName = "";
     private static DatabaseReference dbReference;
 
     public static DatabaseReference getDbReference() {
@@ -48,6 +48,14 @@ public class MyApplication extends Application {
 
     public static void setAdmin(boolean admin) {
         isAdmin = admin;
+    }
+
+    public static String getUserName() {
+        return MyApplication.userName;
+    }
+
+    public static void setUserName(String userName) {
+        MyApplication.userName = userName;
     }
 
 }
