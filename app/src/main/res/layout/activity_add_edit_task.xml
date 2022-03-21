@@ -70,4 +70,15 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/addEditTaskDescription" />
+
+    <EditText
+        android:id="@+id/editTaskDate"
+        android:layout_width="394dp"
+        android:layout_height="41dp"
+        android:ems="10"
+        android:hint="MM/DD/YYYY"
+        android:inputType="date"
+        tools:layout_editor_absoluteX="9dp"
+        tools:layout_editor_absoluteY="385dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

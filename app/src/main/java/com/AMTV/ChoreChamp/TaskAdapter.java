@@ -30,7 +30,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.tv_taskName.setText(taskList.get(position).getName());
-        holder.tv_taskPoints.setText(String.valueOf(taskList.get(position).getPoints()) + "pts");
+        holder.tv_taskPoints.setText(String.valueOf(taskList.get(position).getPoints()));
     }
 
     @Override

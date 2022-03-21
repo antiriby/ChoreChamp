@@ -40,6 +40,8 @@ public class Task {
         this.userAssigned = newUser;
     }
 
+    public void setFrequency(Frequency newFrequency) { this.frequency = newFrequency; }
+
     public void setIsComplete(boolean complete) {
         this.isComplete = complete;
     }

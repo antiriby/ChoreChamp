@@ -41,13 +41,12 @@ public class SecondFragment extends Fragment {
 
     DatabaseReference dbReference;
     FirebaseUser user;
-
     String userId, householdId;
 
     boolean isAdmin = false;
 
     Button btnAdd;
-    List<Task> taskList;
+    List<Task> taskList = new ArrayList<>();
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -67,8 +66,6 @@ public class SecondFragment extends Fragment {
     public static SecondFragment newInstance() {
         SecondFragment fragment = new SecondFragment();
         Bundle args = new Bundle();
-//        args.putString(ARG_PARAM1, param1);
-//        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -77,8 +74,6 @@ public class SecondFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-//            mParam1 = getArguments().getString(ARG_PARAM1);
-//            mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
