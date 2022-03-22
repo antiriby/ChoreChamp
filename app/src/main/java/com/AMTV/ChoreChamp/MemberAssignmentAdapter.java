@@ -27,10 +27,10 @@ public class MemberAssignmentAdapter extends RecyclerView.Adapter<MemberAssignme
     private ArrayList<User> assignees = new ArrayList<>();
     private MemberAssignmentAdapterListener listener;
 
-    public MemberAssignmentAdapter(ArrayList<User> names, Context context){
+    public MemberAssignmentAdapter(ArrayList<User> names, Context context, MemberAssignmentAdapterListener listener){
         this.names = names;
         this.context = context;
-        this.listener = (MemberAssignmentAdapterListener) context;
+        this.listener = listener;
     }
 
     @NonNull

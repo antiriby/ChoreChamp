@@ -7,10 +7,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.lang.reflect.Field;
+enum Frequency {
+    oneTime,
+    Weekly,
+    Monthly
+}
 
 public class MyApplication extends Application {
     private static boolean isAdmin = false;
-    private static String userId, householdId = "";
+    private static String userId, householdId, userName = "";
     private static DatabaseReference dbReference;
     final static int RED_THUMB_ID = R.mipmap.red_thumb_foreground;
     final static int ORANGE_THUMB_ID = R.mipmap.orange_thumb_foreground;
@@ -77,4 +82,13 @@ public class MyApplication extends Application {
     public static int getVioletThumbId() {
         return VIOLET_THUMB_ID;
     }
+
+    public static String getUserName() {
+        return MyApplication.userName;
+    }
+
+    public static void setUserName(String userName) {
+        MyApplication.userName = userName;
+    }
+
 }
