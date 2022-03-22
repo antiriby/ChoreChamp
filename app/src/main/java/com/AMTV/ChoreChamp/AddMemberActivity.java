@@ -20,6 +20,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public class AddMemberActivity extends AppCompatActivity implements View.OnClickListener {
@@ -31,7 +32,7 @@ public class AddMemberActivity extends AppCompatActivity implements View.OnClick
     private String householdID, familyPassword;
     private User currentUser;
     private Household household;
-    private ArrayList<User> members;
+    private HashMap<String,User> members;
 
     private FirebaseAuth mAuth;
     private DatabaseReference dbReference;
@@ -54,11 +55,11 @@ public class AddMemberActivity extends AppCompatActivity implements View.OnClick
         admin = (Switch) findViewById(R.id.switchAddMemberAdmin);
         admin.setOnClickListener(this);
 
-        householdID = (getIntent().getStringExtra("HouseholdID")).substring(1);
+        householdID = (getIntent().getStringExtra("HouseholdID"));
         familyPassword = getIntent().getStringExtra("FamilyPassword");
         currentUser = (User)getIntent().getSerializableExtra("CurrentUser");
         household = (Household) getIntent().getSerializableExtra("Household");
-        members = new ArrayList<>();
+        members = new HashMap<>();
 
         mAuth = FirebaseAuth.getInstance();
         dbReference = FirebaseDatabase.getInstance().getReference();
@@ -104,7 +105,7 @@ public class AddMemberActivity extends AppCompatActivity implements View.OnClick
                             editTextEmail.getText().clear();
 
                             // Add new member to the member ArrayList
-                            members.add(user);
+                            members.put(user.getUid(), user);
                             Toast.makeText(AddMemberActivity.this, "Member was successfully added to household!", Toast.LENGTH_LONG).show();
 
                         } else {
@@ -124,7 +125,7 @@ public class AddMemberActivity extends AppCompatActivity implements View.OnClick
         }
 
         // Update member list for household object including the admin/current user
-        members.add(currentUser);
+        members.put(currentUser.getUid(), currentUser);
         household.setMembers(members);
 
         // Push the household to database

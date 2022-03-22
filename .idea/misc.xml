@@ -5,9 +5,12 @@
       <map>
 
         <entry key="../../../../layout/custom_preview.xml" value="0.1685185185185185" />
+        <entry key="..\:/Users/User/StudioProjects/ChoreChamp/app/src/main/res/drawable/family_background.xml" value="0.2465" />
+        <entry key="..\:/Users/User/StudioProjects/ChoreChamp/app/src/main/res/drawable/family_foreground.xml" value="0.2465" />
+        <entry key="..\:/Users/User/StudioProjects/ChoreChamp/app/src/main/res/drawable/profile_foreground.xml" value="0.2465" />
         <entry key="..\:/Users/User/StudioProjects/ChoreChamp/app/src/main/res/layout/activity_add_edit_reward.xml" value="0.144" />
         <entry key="..\:/Users/User/StudioProjects/ChoreChamp/app/src/main/res/layout/activity_add_member.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/User/StudioProjects/ChoreChamp/app/src/main/res/layout/activity_admin_reward.xml" value="0.264" />
+        <entry key="..\:/Users/User/StudioProjects/ChoreChamp/app/src/main/res/layout/activity_admin_reward.xml" value="0.2" />
         <entry key="..\:/Users/User/StudioProjects/ChoreChamp/app/src/main/res/layout/activity_home.xml" value="0.25" />
         <entry key="..\:/Users/User/StudioProjects/ChoreChamp/app/src/main/res/layout/activity_login.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/User/StudioProjects/ChoreChamp/app/src/main/res/layout/activity_reward.xml" value="0.25" />
@@ -16,8 +19,9 @@
         <entry key="..\:/Users/User/StudioProjects/ChoreChamp/app/src/main/res/layout/fragment_add_edit_reward.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/User/StudioProjects/ChoreChamp/app/src/main/res/layout/fragment_first.xml" value="0.264" />
         <entry key="..\:/Users/User/StudioProjects/ChoreChamp/app/src/main/res/layout/fragment_fourth.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/User/StudioProjects/ChoreChamp/app/src/main/res/layout/fragment_second2.xml" value="0.1" />
+        <entry key="..\:/Users/User/StudioProjects/ChoreChamp/app/src/main/res/layout/fragment_second2.xml" value="0.264" />
         <entry key="..\:/Users/User/StudioProjects/ChoreChamp/app/src/main/res/layout/fragment_third.xml" value="0.14479166666666668" />
+        <entry key="..\:/Users/User/StudioProjects/ChoreChamp/app/src/main/res/layout/reward.xml" value="0.2" />
         <entry key="..\:/Users/User/StudioProjects/ChoreChamp/app/src/main/res/layout/toolbar.xml" value="0.20878623188405798" />
         <entry key="..\:/Users/User/StudioProjects/ChoreChamp/app/src/main/res/menu/bottom_nav_menu.xml" value="0.1" />
         <entry key="..\:/Users/User/StudioProjects/ChoreChamp/app/src/main/res/menu/reward_toolbar.xml" value="0.1" />
@@ -66,7 +70,7 @@
   <component name="VisualizationToolProject">
     <option name="state">
       <ProjectState>
-        <option name="scale" value="0.136" />
+        <option name="scale" value="0.536" />
       </ProjectState>
     </option>
   </component>

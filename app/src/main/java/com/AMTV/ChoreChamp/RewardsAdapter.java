@@ -4,10 +4,19 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
@@ -15,6 +24,8 @@ public class RewardsAdapter extends RecyclerView.Adapter<RewardsAdapter.MyViewHo
 
     List<Reward> rewardList;
     Context context;
+    DatabaseReference userReference, rewardReference, householdReference;
+    int userPoints;
 
     public RewardsAdapter(List<Reward> rewardList, Context context) {
         this.rewardList = rewardList;
@@ -26,13 +37,65 @@ public class RewardsAdapter extends RecyclerView.Adapter<RewardsAdapter.MyViewHo
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.reward,parent,false);
         MyViewHolder holder = new MyViewHolder(view);
+
+        rewardReference = FirebaseDatabase.getInstance().getReference().child("Households").child(MyApplication.getHouseholdId()).child("availableRewards");
+        householdReference = FirebaseDatabase.getInstance().getReference().child("Households").child(MyApplication.getHouseholdId());
+        userReference = FirebaseDatabase.getInstance().getReference().child("Users");
+
         return holder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.tv_rewardName.setText(rewardList.get(position).getName());
-        holder.tv_rewardPoints.setText(String.valueOf(rewardList.get(position).getPoints()) + "pts");
+        holder.tv_rewardPoints.setText(String.valueOf(rewardList.get(position).getPoints()) + " pts");
+        holder.cb_rewardCheck.setChecked(rewardList.get(position).getClaimed().equals("true"));
+        holder.cb_rewardCheck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Reward currentReward = rewardList.get(position);
+
+                userReference.child(currentReward.getUid()).child("points").addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        userPoints = Integer.parseInt((String) snapshot.getValue());
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+                int currRewardPoints = Integer.parseInt(currentReward.getPoints());
+
+                // If claimed, change to unclaimed
+                if(currentReward.getClaimed().equals("true")) {
+                    rewardReference.child(currentReward.getRewardId()).child("claimed").setValue("false");
+
+                    // Set points in households
+                    householdReference.child("members").child(currentReward.getUid()).child("points").setValue("" + (userPoints + currRewardPoints));
+
+                    // Set points in users
+                    userReference.child(currentReward.getUid()).child("points").setValue("" + (userPoints + currRewardPoints));
+
+                }else{ // unclaimed, change to claimed
+                    //Check if user has enough points
+                    if(userPoints >= currRewardPoints) {
+                        rewardReference.child(rewardList.get(position).getRewardId()).child("claimed").setValue("true");
+
+                        // Set points in households
+                        householdReference.child("members").child(currentReward.getUid()).child("points").setValue("" + (userPoints - Integer.parseInt(currentReward.getPoints())));
+
+                        // Set points in users
+                        userReference.child(currentReward.getUid()).child("points").setValue("" + (userPoints - Integer.parseInt(currentReward.getPoints())));
+                    }else{
+                        Toast.makeText(view.getContext(), "You don't have enough points!", Toast.LENGTH_LONG);
+                    }
+                }
+
+            }
+        });
     }
 
     @Override
@@ -43,11 +106,13 @@ public class RewardsAdapter extends RecyclerView.Adapter<RewardsAdapter.MyViewHo
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView tv_rewardName;
         TextView tv_rewardPoints;
+        CheckBox cb_rewardCheck;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             tv_rewardName = itemView.findViewById(R.id.RewardListRewardName);
             tv_rewardPoints = itemView.findViewById(R.id.RewardListRewardPoints);
+            cb_rewardCheck = itemView.findViewById(R.id.rewardCheckBox);
         }
     }
 }
