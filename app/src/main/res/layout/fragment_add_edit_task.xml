@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:fontFamily="@font/barlow_medium"
-            android:text="ADD REWARD"
+            android:text="ADD TASK"
             android:textColor="@color/white"
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -47,22 +47,22 @@
 
 
     <EditText
-        android:id="@+id/addEditRewardName"
+        android:id="@+id/addEditTaskName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="132dp"
         android:width="300dp"
         android:ems="10"
+        android:hint="Task Name"
         android:inputType="text"
         android:minHeight="48dp"
-        android:hint="Reward Name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/addEditRewardDescription"
+        android:id="@+id/addEditTaskDescription"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -74,10 +74,10 @@
         android:hint="Description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addEditRewardMemberList" />
+        app:layout_constraintTop_toBottomOf="@+id/addEditTaskMemberList" />
 
     <EditText
-        android:id="@+id/addEditRewardPoints"
+        android:id="@+id/addEditTaskPoints"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
@@ -88,17 +88,17 @@
         android:hint="Points"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addEditRewardName" />
+        app:layout_constraintTop_toBottomOf="@+id/addEditTaskName" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/addEditRewardMemberList"
+        android:id="@+id/addEditTaskMemberList"
         android:layout_width="match_parent"
         android:layout_height="120dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@+id/addEditRewardPoints" />
+        app:layout_constraintTop_toBottomOf="@+id/addEditTaskPoints" />
 
     <Button
         android:id="@+id/btnTaskAddEditSave"
@@ -109,5 +109,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addEditRewardDescription" />
+        app:layout_constraintTop_toBottomOf="@+id/addEditTaskDescription" />
+
+    <EditText
+        android:id="@+id/editTaskDate"
+        android:layout_width="394dp"
+        android:layout_height="48dp"
+        android:ems="10"
+        android:hint="MM/DD/YYYY"
+        android:inputType="date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addEditTaskMemberList" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,14 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-
         <entry key="../../../../layout/custom_preview.xml" value="0.1685185185185185" />
         <entry key="..\:/Users/User/StudioProjects/ChoreChamp/app/src/main/res/drawable/family_background.xml" value="0.2465" />
         <entry key="..\:/Users/User/StudioProjects/ChoreChamp/app/src/main/res/drawable/family_foreground.xml" value="0.2465" />
         <entry key="..\:/Users/User/StudioProjects/ChoreChamp/app/src/main/res/drawable/profile_foreground.xml" value="0.2465" />
         <entry key="..\:/Users/User/StudioProjects/ChoreChamp/app/src/main/res/layout/activity_add_edit_reward.xml" value="0.144" />
         <entry key="..\:/Users/User/StudioProjects/ChoreChamp/app/src/main/res/layout/activity_add_member.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/User/StudioProjects/ChoreChamp/app/src/main/res/layout/activity_admin_reward.xml" value="0.2" />
+        <entry key="..\:/Users/User/StudioProjects/ChoreChamp/app/src/main/res/layout/activity_admin_reward.xml" value="0.1" />
         <entry key="..\:/Users/User/StudioProjects/ChoreChamp/app/src/main/res/layout/activity_home.xml" value="0.25" />
         <entry key="..\:/Users/User/StudioProjects/ChoreChamp/app/src/main/res/layout/activity_login.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/User/StudioProjects/ChoreChamp/app/src/main/res/layout/activity_reward.xml" value="0.25" />
@@ -22,6 +21,7 @@
         <entry key="..\:/Users/User/StudioProjects/ChoreChamp/app/src/main/res/layout/fragment_second2.xml" value="0.264" />
         <entry key="..\:/Users/User/StudioProjects/ChoreChamp/app/src/main/res/layout/fragment_third.xml" value="0.14479166666666668" />
         <entry key="..\:/Users/User/StudioProjects/ChoreChamp/app/src/main/res/layout/reward.xml" value="0.2" />
+        <entry key="..\:/Users/User/StudioProjects/ChoreChamp/app/src/main/res/layout/task.xml" value="0.176" />
         <entry key="..\:/Users/User/StudioProjects/ChoreChamp/app/src/main/res/layout/toolbar.xml" value="0.20878623188405798" />
         <entry key="..\:/Users/User/StudioProjects/ChoreChamp/app/src/main/res/menu/bottom_nav_menu.xml" value="0.1" />
         <entry key="..\:/Users/User/StudioProjects/ChoreChamp/app/src/main/res/menu/reward_toolbar.xml" value="0.1" />
@@ -38,48 +38,27 @@
         <entry key="app/src/main/res/drawable/ic_checkmark_background.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.1" />
-        <entry key="app/src/main/res/drawable/icon_frame.xml" value="0.103" />
         <entry key="app/src/main/res/drawable/profile_background.xml" value="0.1" />
-        <entry key="app/src/main/res/drawable/profile_foreground.xml" value="0.103" />
-        <entry key="app/src/main/res/drawable/roundbutton.xml" value="0.103" />
-        <entry key="app/src/main/res/layout/activity_add_edit_reward.xml" value="0.19384057971014493" />
-
         <entry key="app/src/main/res/layout/activity_add_member.xml" value="0.2234375" />
         <entry key="app/src/main/res/layout/activity_home.xml" value="0.18793487548828125" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.3591485507246377" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.3591485507246377" />
         <entry key="app/src/main/res/layout/activity_profile.xml" value="0.3591485507246377" />
         <entry key="app/src/main/res/layout/activity_register.xml" value="0.3591485507246377" />
-        <entry key="app/src/main/res/layout/activity_reward.xml" value="0.125848388671875" />
         <entry key="app/src/main/res/layout/activity_task.xml" value="0.3917572463768116" />
-        <entry key="app/src/main/res/layout/activity_welcome.xml" value="0.3131317138671875" />
-        <entry key="app/src/main/res/layout/task.xml" value="0.1490036231884058" />
+        <entry key="app/src/main/res/layout/activity_welcome.xml" value="0.3591485507246377" />
         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/fragment_fourth.xml" value="0.19273529052734373" />
+        <entry key="app/src/main/res/layout/fragment_fourth.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_second.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_second2.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_third.xml" value="0.4464019775390625" />
         <entry key="app/src/main/res/layout/household_list_item.xml" value="0.3095725902612659" />
-        <entry key="app/src/main/res/layout/profile_history.xml" value="0.2477355072463768" />
-        <entry key="app/src/main/res/layout/reward.xml" value="0.19384057971014493" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.22" />
-        <entry key="app/src/main/res/mipmap-anydpi-v26/blue_thumb.xml" value="0.103" />
-        <entry key="app/src/main/res/mipmap-anydpi-v26/blue_thumb_round.xml" value="0.103" />
-        <entry key="app/src/main/res/mipmap-anydpi-v26/gold_thumb.xml" value="0.103" />
-        <entry key="app/src/main/res/mipmap-anydpi-v26/gold_thumb_round.xml" value="0.103" />
-        <entry key="app/src/main/res/mipmap-anydpi-v26/green_thumb.xml" value="0.103" />
-        <entry key="app/src/main/res/mipmap-anydpi-v26/green_thumb_round.xml" value="0.103" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1" />
-        <entry key="app/src/main/res/mipmap-anydpi-v26/orange_thumb.xml" value="0.103" />
-        <entry key="app/src/main/res/mipmap-anydpi-v26/orange_thumb_round.xml" value="0.103" />
-        <entry key="app/src/main/res/mipmap-anydpi-v26/red_thumb.xml" value="0.103" />
-        <entry key="app/src/main/res/mipmap-anydpi-v26/red_thumb_round.xml" value="0.103" />
-        <entry key="app/src/main/res/mipmap-anydpi-v26/violet_thumb.xml" value="0.103" />
-        <entry key="app/src/main/res/mipmap-anydpi-v26/violet_thumb_round.xml" value="0.103" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
