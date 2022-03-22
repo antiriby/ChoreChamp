@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -109,11 +110,6 @@ public class AddMemberActivity extends AppCompatActivity implements View.OnClick
                 break;
             case R.id.btnAddMemberFinish:
                 createHousehold();
-                Intent login = new Intent(this, LoginActivity.class);
-                login.putExtra("HouseholdId", householdID);
-                login.putExtra("CurrentUser", currentUser);
-                login.putExtra("Household", household);
-                startActivity(login);
                 break;
             case R.id.btnAddMemberRed:
                 profileIconId = MyApplication.getRedThumbId();
@@ -157,6 +153,25 @@ public class AddMemberActivity extends AppCompatActivity implements View.OnClick
         String email = editTextEmail.getText().toString().trim();
         Boolean role = admin.isChecked();
 
+        if (name.isEmpty()){
+            editTextName.setError("Name is required!");
+            editTextName.requestFocus();
+            return;
+        }
+
+        if (email.isEmpty()){
+            editTextEmail.setError("Email Address is required!");
+            editTextEmail.requestFocus();
+            return;
+        }
+
+        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            editTextEmail.setError("Please provide a valid email address (i.e. @gmail.com");
+            editTextEmail.requestFocus();
+            return;
+        }
+
+
         // Push new member to database
         mAuth.createUserWithEmailAndPassword(email,familyPassword)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -174,7 +189,7 @@ public class AddMemberActivity extends AppCompatActivity implements View.OnClick
 
                             // Add new member to the member ArrayList
                             members.add(user);
-                            Toast.makeText(AddMemberActivity.this, "Member was successfully added to household!", Toast.LENGTH_LONG).show();
+                            Toast.makeText(AddMemberActivity.this, "Member was successfully added to household!", Toast.LENGTH_SHORT).show();
 
                         } else {
                             Toast.makeText(AddMemberActivity.this, "Something went wrong. Please try Again!", Toast.LENGTH_LONG).show();
@@ -186,7 +201,18 @@ public class AddMemberActivity extends AppCompatActivity implements View.OnClick
     private void createHousehold() {
         if(!editTextName.getText().toString().trim().isEmpty() &&
                 !editTextEmail.getText().toString().trim().isEmpty()){
-            addNewMember();
+            Toast.makeText(AddMemberActivity.this, "Press 'Add Member' before finishing.", Toast.LENGTH_SHORT).show();
+            return;
+        } else if (editTextName.getText().toString().trim().isEmpty() &&
+                !editTextEmail.getText().toString().trim().isEmpty()){
+            editTextName.setError("Name is required!");
+            editTextName.requestFocus();
+            return;
+        } else if(!editTextName.getText().toString().trim().isEmpty() &&
+                editTextEmail.getText().toString().trim().isEmpty()){
+            editTextEmail.setError("Email required.");
+            editTextEmail.requestFocus();
+            return;
         }
         // Update member list for household object including the admin/current user
         members.add(currentUser);
@@ -194,5 +220,11 @@ public class AddMemberActivity extends AppCompatActivity implements View.OnClick
 
         // Push the household to database
         dbReference.child("Households").child(householdID).setValue(household);
+
+        Intent login = new Intent(this, LoginActivity.class);
+        login.putExtra("HouseholdId", householdID);
+        login.putExtra("CurrentUser", currentUser);
+        login.putExtra("Household", household);
+        startActivity(login);
     }
 }

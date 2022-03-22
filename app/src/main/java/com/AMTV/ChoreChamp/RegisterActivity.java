@@ -145,13 +145,13 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         Boolean adminRole = true;
 
         if (householdName.isEmpty()){
-            editTextHouseholdName.setError("First name is required!");
+            editTextHouseholdName.setError("Household name is required!");
             editTextHouseholdName.requestFocus();
             return;
         }
 
         if (name.isEmpty()){
-            editTextName.setError("Last name is required!");
+            editTextName.setError("Name is required!");
             editTextName.requestFocus();
             return;
         }
