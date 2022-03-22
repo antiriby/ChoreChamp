@@ -1,17 +1,24 @@
 package com.AMTV.ChoreChamp;
 
 public class Reward {
-    private String name, description, uid;
-    private int points;
+    private String name;
+    private String description;
+    private String uid;
+
+    private String rewardId;
+    private String points;
+    private String claimed;
 
 //    public Reward(String name, int points, User user, String description) {
     public Reward(){}
 
-    public Reward(String name, int points, String uid, String description) {
+    public Reward(String name, String points, String uid, String rewardId, String description, String claimed) {
         this.points = points;
         this.name = name;
         this.uid = uid;
         this.description = description;
+        this.claimed = claimed;
+        this.rewardId = rewardId;
     }
 
     public String getName() {
@@ -22,11 +29,11 @@ public class Reward {
         this.name = name;
     }
 
-    public int getPoints() {
+    public String getPoints() {
         return points;
     }
 
-    public void setPoints(int points) {
+    public void setPoints(String points) {
         this.points = points;
     }
 
@@ -44,5 +51,19 @@ public class Reward {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public void setClaimed(String claimed) {
+        this.claimed = claimed;
+    }
+
+    public String getClaimed() { return claimed; }
+
+    public String getRewardId() {
+        return rewardId;
+    }
+
+    public void setRewardId(String rewardId) {
+        this.rewardId = rewardId;
     }
 }

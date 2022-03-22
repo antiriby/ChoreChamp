@@ -3,14 +3,21 @@ package com.AMTV.ChoreChamp;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -37,6 +44,7 @@ public class FirstFragment extends Fragment {
     private RecyclerView.LayoutManager layoutManager;
     private FirebaseRecyclerOptions<User> options;
     private ArrayList<User>userList;
+    private ImageButton btnAdd;
 
 
     public FirstFragment() {
@@ -59,9 +67,12 @@ public class FirstFragment extends Fragment {
         return fragment;
     }
 
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if (getArguments() != null) {
             //adapter = (UserAdapter) getArguments().getSerializable(ADAPTER);
         }
@@ -112,6 +123,19 @@ public class FirstFragment extends Fragment {
             }
         });
         recyclerView.setItemAnimator(new DefaultItemAnimator());
+
+
+        btnAdd = (ImageButton) rootView.findViewById(R.id.btnAddFamilyMember);
+
+        if(MyApplication.isAdmin()){
+            btnAdd.setVisibility(View.VISIBLE);
+            
+            // TODO add onClickListener
+
+        }else{
+            btnAdd.setVisibility(View.INVISIBLE);
+        }
+
 
         return rootView;
     }

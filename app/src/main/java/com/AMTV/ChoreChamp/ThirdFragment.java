@@ -4,16 +4,24 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -31,14 +39,10 @@ import java.util.List;
  */
 public class ThirdFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-//    private static final String ARG_PARAM1 = "param1";
-//    private static final String ARG_PARAM2 = "param2";
-
     DatabaseReference dbReference;
     String userId, householdId;
-    Button btnAdd;
+    ImageButton btnAdd;
+    TextView tvTitle, emptyMessage;
     List<Reward> rewardList = new ArrayList<>();
 
     private RecyclerView recyclerView;
@@ -55,12 +59,9 @@ public class ThirdFragment extends Fragment {
      *
      * @return A new instance of fragment ThirdFragment.
      */
-    // TODO: Rename and change types and number of parameters
     public static ThirdFragment newInstance() {
         ThirdFragment fragment = new ThirdFragment();
         Bundle args = new Bundle();
-//        args.putString(ARG_PARAM1, param1);
-//        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -68,6 +69,11 @@ public class ThirdFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        setHasOptionsMenu(true);
+        // Set the toolbar
+
+
+
         if (getArguments() != null) {
 //            mParam1 = getArguments().getString(ARG_PARAM1);
 //            mParam2 = getArguments().getString(ARG_PARAM2);
@@ -114,6 +120,12 @@ public class ThirdFragment extends Fragment {
                         rewardList.add(ld);
                     }
 
+                    if (rewardList.size() > 0) {
+                        emptyMessage.setVisibility(View.INVISIBLE);
+                    } else {
+                        emptyMessage.setVisibility(View.VISIBLE);
+                    }
+
                     mAdapter.notifyDataSetChanged();
                 }
 
@@ -148,15 +160,21 @@ public class ThirdFragment extends Fragment {
 
         // Only shows + button if admin
         if(MyApplication.isAdmin()){
-            btnAdd = rootView.findViewById(R.id.btnRewardAdd);
+            btnAdd = rootView.findViewById(R.id.btnAddReward);
+
+            // Display a message if the list is empty
+            emptyMessage = rootView.findViewById(R.id.emptyRewardListMessage);
+            if(rewardList.size() > 0){
+                emptyMessage.setVisibility(View.INVISIBLE);
+            }else{
+                emptyMessage.setVisibility(View.VISIBLE);
+            }
 
             btnAdd.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //Intent intent = new Intent(RewardActivity.this, AddEditRewardActivity.class);
-                    Intent intent = new Intent(getActivity(), AddEditRewardActivity.class);
-
-                    startActivity(intent);
+                    AddEditRewardFragment addEditRewardFragment = new AddEditRewardFragment();
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fram, addEditRewardFragment).commit();
                 }
             });
         }
