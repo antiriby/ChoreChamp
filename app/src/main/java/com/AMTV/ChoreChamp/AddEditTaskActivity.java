@@ -60,7 +60,7 @@ public class AddEditTaskActivity extends AppCompatActivity implements MemberAssi
         fillMembersArray();
         initRecyclerView();
 
-        btnSave = findViewById(R.id.btnAddEditSave);
+        btnSave = findViewById(R.id.btnTaskAddEditSave);
 
         editTaskName = (EditText) findViewById(R.id.addEditTaskName);
         editTaskPoints = (EditText) findViewById(R.id.addEditTaskPoints);
@@ -111,7 +111,7 @@ public class AddEditTaskActivity extends AppCompatActivity implements MemberAssi
 
         for(String assignee : assigneeIds){
             String key = householdReference.child(householdId).child("availableTasks").push().getKey();
-            Task task = new Task(name,description,points,date);
+            Task task = new Task(name,description,"", "");
 
             householdReference.child(householdId).child("availableTasks").child(key).setValue(task);
 

@@ -2,33 +2,39 @@ package com.AMTV.ChoreChamp;
 import java.util.Date;
 
 public class Task {
-    private String name, description;
-    private int points;
-    private Date dueDate;
-    private User userAssigned;
-    private boolean isComplete;
-    private Frequency frequency;
-//    private enum Frequency {oneTime, Weekly, Monthly};
+    private String name, description, points;
+    private String uid;
+    private String isComplete;
 
-    public Task(String name, String description, int points, Date dueDate) {
+    public Task() {}
+    public Task(String name, String description, String points, String uid) {
         this.name = name;
         this.description = description;
         this.points = points;
-        this.frequency = Frequency.oneTime;
-        this.dueDate = dueDate;
-        this.userAssigned = null;
-        this.isComplete = false;
+        this.isComplete = "false";
+        this.uid = uid;
     }
 
     public String getName() {
         return name;
     }
 
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+
+
+
     public String getDescription() {
         return description;
     }
 
-    public int getPoints() {
+    public String getPoints() {
         return points;
     }
 
@@ -36,13 +42,10 @@ public class Task {
         this.description = newDescription;
     }
 
-    public void setUser(User newUser) {
-        this.userAssigned = newUser;
-    }
-
-    public void setFrequency(Frequency newFrequency) { this.frequency = newFrequency; }
-
-    public void setIsComplete(boolean complete) {
+    public void setIsComplete(String complete) {
         this.isComplete = complete;
+    }
+    public String getIsComplete() {
+        return isComplete;
     }
 }
