@@ -147,7 +147,7 @@ public class AddEditTaskActivity extends AppCompatActivity implements MemberAssi
         layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recyclerView = findViewById(R.id.addEditTaskMemberList);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new MemberAssignmentAdapter(members, this);
+        adapter = new MemberAssignmentAdapter(members, this, this);
         recyclerView.setAdapter(adapter);
     }
 
