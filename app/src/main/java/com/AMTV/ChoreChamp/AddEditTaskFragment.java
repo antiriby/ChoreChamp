@@ -163,7 +163,7 @@ public class AddEditTaskFragment extends Fragment {
 
         for(String assignee : assigneeIds){
             String key = householdReference.child(householdId).child("availableTasks").push().getKey();
-            Task task = new Task(name,description,pointsStr, assignee);
+            Task task = new Task(name, description, pointsStr, assignee, key);
 
             householdReference.child(householdId).child("availableTasks").child(key).setValue(task);
 

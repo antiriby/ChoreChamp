@@ -173,9 +173,8 @@ public class SecondFragment extends Fragment {
             btnAdd.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(getActivity(), AddEditTaskActivity.class);
-
-                    startActivity(intent);
+                    AddEditTaskFragment addEditTaskFragment = new AddEditTaskFragment();
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fram, addEditTaskFragment).commit();
                 }
             });
         }
