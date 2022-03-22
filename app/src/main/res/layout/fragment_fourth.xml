@@ -59,16 +59,92 @@
     <!-- TODO: Update blank fragment layout -->
 
     <TextView
-        android:id="@+id/fourthFragment"
+        android:id="@+id/txtProfileName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="264dp"
-        android:text="Profile"
+        android:layout_marginTop="13dp"
+        android:textAlignment="center"
         android:textColor="#43a047"
         android:textSize="40sp"
         android:textStyle="italic|bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgProfileIcon" />
+
+    <ImageView
+        android:id="@+id/imgProfileIcon"
+        android:layout_width="107dp"
+        android:layout_height="89dp"
+        android:layout_marginTop="88dp"
+        android:background="@drawable/icon_frame"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/txtProfilePoints"
+        android:layout_width="86dp"
+        android:layout_height="48dp"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtProfileName" />
+
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="409dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="12dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtProfilePoints" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerProfileHistory"
+        android:layout_width="410dp"
+        android:layout_height="415dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btnProfileLogout"
+        android:layout_width="80dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="104dp"
+        android:text="Logout"
+        android:textColor="#D61A1A"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.872"
+        app:layout_constraintStart_toEndOf="@+id/txtProfileName"
         app:layout_constraintTop_toTopOf="parent" />
+
+<!--    <ImageView-->
+<!--        android:id="@+id/imgProfileEditPoints"-->
+<!--        android:layout_width="41dp"-->
+<!--        android:layout_height="44dp"-->
+<!--        android:layout_marginStart="24dp"-->
+<!--        android:layout_marginTop="244dp"-->
+<!--        android:src="@drawable/edit_pencil_foreground"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.0"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/txtProfilePoints"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/txtProfileEditPOints"-->
+<!--        android:layout_width="89dp"-->
+<!--        android:layout_height="42dp"-->
+<!--        android:layout_marginTop="56dp"-->
+<!--        android:hint="Enter points"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.493"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/txtProfileName" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

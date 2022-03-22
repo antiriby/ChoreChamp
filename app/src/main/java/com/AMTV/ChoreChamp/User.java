@@ -1,13 +1,19 @@
 package com.AMTV.ChoreChamp;
 
+import android.media.Image;
+import android.widget.ImageView;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
 public class User implements Serializable {
+    private int points, profileIconId;
+
+    public User(){}
+
     final String DEFAULT_POINTS = "0";
     private String name, email, role, householdId, uid, points;
 
-    public User(){}
 
     public User(String name, String email, String role, String householdId, String uid, String points){
         this.name = name;
@@ -24,21 +30,27 @@ public class User implements Serializable {
         this.householdId = householdId;
         this.points = DEFAULT_POINTS;
         this.uid = uid;
+        this.profileIconId = iconId;
 
         if(admin) {
             role = "Admin";
         } else {
             role = "Member";
         }
-
     }
 
-    public User(String name, String email, String role, String householdId) {
+    public User(String name, String email, Boolean admin, String householdId, String uid) {
         this.name = name;
         this.email = email;
-        this.role = role;
         this.householdId = householdId;
         this.points = DEFAULT_POINTS;
+        this.uid = uid;
+
+        if (admin) {
+            role = "Admin";
+        } else {
+            role = "Member";
+        }
     }
 
 
@@ -59,8 +71,16 @@ public class User implements Serializable {
         this.role = role;
     }
 
+    public void setUid(String uid){
+        this.uid = uid;
+    }
+
     public void setPoints(String points) {
         this.points = points;
+    }
+
+    public void setProfileIconId(int profileIconId) {
+        this.profileIconId = profileIconId;
     }
 
     // Getter Methods
@@ -80,9 +100,12 @@ public class User implements Serializable {
         return householdId;
     }
 
-
     public String getUid() { return uid; }
 
+
+    public int getProfileIconId() {
+        return profileIconId;
+    }
     public void setUid(String uid){
         this.uid = uid;
     }

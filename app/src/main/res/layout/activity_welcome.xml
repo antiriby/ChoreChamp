@@ -23,29 +23,32 @@
 
     <TextView
         android:id="@+id/txtWelcome"
-        android:layout_width="285dp"
-        android:layout_height="60dp"
+        android:layout_width="327dp"
+        android:layout_height="76dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
+        android:layout_marginTop="36dp"
+        android:fontFamily="@font/barlow_condensed_semibold"
         android:gravity="center_horizontal|top"
         android:lineSpacingExtra="2sp"
         android:text="@string/welcome"
         android:textAppearance="@style/welcome"
+        android:textSize="60sp"
         android:translationY="-1.2sp"
         app:layout_constraintBottom_toTopOf="@+id/btnWelcomeLogin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/imgLogo" />
 
     <Button
         android:id="@+id/btnWelcomeLogin"
         android:layout_width="197dp"
         android:layout_height="71dp"
-        android:layout_marginBottom="420dp"
+        android:layout_marginTop="36dp"
         android:text="Login"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtWelcome" />
 
     <Button
         android:id="@+id/btnWelcomeRegister"
@@ -57,7 +60,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnWelcomeLogin"
-        app:layout_constraintVertical_bias="0.219" />
+        app:layout_constraintVertical_bias="0.164" />
+
+    <ImageView
+        android:id="@+id/imgLogo"
+        android:layout_width="321dp"
+        android:layout_height="301dp"
+        android:layout_marginTop="56dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/chorechamp_logo_foreground" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
