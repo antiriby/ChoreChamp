@@ -34,15 +34,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationBarView
         bottomNavigationView = findViewById(R.id.bottomNav);
         bottomNavigationView.setOnItemSelectedListener(this);
         bottomNavigationView.setSelectedItemId(R.id.family);
-
-//        recyclerView = findViewById(R.id.recyclerHomeHouseholdList);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-//
-//        FirebaseRecyclerOptions<User> options = new FirebaseRecyclerOptions.Builder<User>()
-//                .setQuery(householdRef, User.class)
-//                .build();
-//        adapter = new UserAdapter(getApplicationContext(),options);
-//        recyclerView.setAdapter(adapter);
     }
     FirstFragment firstFragment = new FirstFragment();
     SecondFragment secondFragment = new SecondFragment();
@@ -73,19 +64,5 @@ public class HomeActivity extends AppCompatActivity implements NavigationBarView
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
         super.onPointerCaptureChanged(hasCapture);
-    }
-
-    @Override protected void onStart()
-    {
-        super.onStart();
-       //adapter.startListening();
-    }
-
-    // Function to tell the app to stop getting
-    // data from database on stopping of the activity
-    @Override protected void onStop()
-    {
-        super.onStop();
-        //adapter.stopListening();
     }
 }

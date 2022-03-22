@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,9 +34,11 @@ public class FourthFragment extends Fragment implements View.OnClickListener {
 //    private static final String ARG_PARAM2 = "param2";
     private DatabaseReference dbReference;
     private TextView nameTextView, pointsTextView;
-    private ImageView profileImgView;
+    private EditText editPoints;
+    private ImageView profileImgView, profileEditPoints;
     private User currentUser;
     private Button logoutButton;
+    private boolean isEditingPoints = false;
 
 
     public FourthFragment() {
@@ -53,8 +56,6 @@ public class FourthFragment extends Fragment implements View.OnClickListener {
     public static FourthFragment newInstance(String param1, String param2) {
         FourthFragment fragment = new FourthFragment();
         Bundle args = new Bundle();
-//        args.putString(ARG_PARAM1, param1);
-//        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -62,12 +63,9 @@ public class FourthFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-//            mParam1 = getArguments().getString(ARG_PARAM1);
-//            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+        if (getArguments() != null) { }
 
-        dbReference = FirebaseDatabase.getInstance().getReference();
+        dbReference = MyApplication.getDbReference();
     }
 
     @Override
@@ -77,9 +75,18 @@ public class FourthFragment extends Fragment implements View.OnClickListener {
         View rootView = inflater.inflate(R.layout.fragment_fourth, container, false);
         nameTextView = rootView.findViewById(R.id.txtProfileName);
         pointsTextView = rootView.findViewById(R.id.txtProfilePoints);
-        logoutButton = rootView.findViewById(R.id.btnProfileLogout);
         profileImgView = rootView.findViewById(R.id.imgProfileIcon);
+//        editPoints = rootView.findViewById(R.id.txtProfileEditPOints);
+//        editPoints.setVisibility(View.INVISIBLE);
+
+        logoutButton = rootView.findViewById(R.id.btnProfileLogout);
         logoutButton.setOnClickListener(this);
+
+//        if (currentUser.getRole() == "Admin") {
+//            profileEditPoints.setVisibility(View.VISIBLE);
+//        } else {
+//            profileEditPoints.setVisibility(View.INVISIBLE);
+//        }
 
         //Add completed tasks field to User
         dbReference.child("Users").child(MyApplication.getUserId()).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -97,8 +104,6 @@ public class FourthFragment extends Fragment implements View.OnClickListener {
                 Toast.makeText(getActivity(),"Error loading profile. Please try again later.", Toast.LENGTH_LONG).show();
             }
         });
-
-
         return rootView;
     }
 
@@ -110,6 +115,29 @@ public class FourthFragment extends Fragment implements View.OnClickListener {
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 break;
+//            case R.id.imgProfileEditPoints:
+//                if(currentUser.getRole() ==  "Admin" && !isEditingPoints){
+//                    editPoints.setVisibility(View.VISIBLE);
+//                    //editPoints();
+//                } else if (isEditingPoints) {
+//                    editPoints.setVisibility(View.INVISIBLE);
+//                }
+//                break;
         }
     }
+
+//    private void editPoints() {
+//        isEditingPoints = true;
+//        dbReference.child("Users").addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                User changed u
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        })
+//    }
 }
