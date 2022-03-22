@@ -51,7 +51,7 @@ public class SecondFragment extends Fragment {
 
     boolean isAdmin = false;
 
-    Button btnAdd;
+    //Button btnAdd;
     List<Task> taskList = new ArrayList<>();
 
     private RecyclerView recyclerView;
@@ -92,8 +92,8 @@ public class SecondFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment_second2, container, false);
 
-        View rootView;
 
         if(MyApplication.isAdmin()){
             rootView = inflater.inflate(R.layout.activity_admin_task, container, false);
@@ -168,9 +168,6 @@ public class SecondFragment extends Fragment {
             });
         }
         // Inflate the layout for this fragment
-
-
-        View rootView = inflater.inflate(R.layout.fragment_second2, container, false);
 
         TextView emptyMessage = rootView.findViewById(R.id.emptyTaskListMessage);
 
