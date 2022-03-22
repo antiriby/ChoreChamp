@@ -2,14 +2,18 @@ package com.AMTV.ChoreChamp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseUser;
@@ -26,8 +30,9 @@ import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-public class AddEditTaskActivity extends AppCompatActivity implements MemberAssignmentAdapterListener {
+public class AddEditTaskActivity extends Fragment {
     Button btnSave;
+    ImageButton btnBack;
     FirebaseUser user;
     String userId, householdId;
     DatabaseReference householdReference;
@@ -45,10 +50,52 @@ public class AddEditTaskActivity extends AppCompatActivity implements MemberAssi
     private RecyclerView recyclerView;
     private LinearLayoutManager layoutManager;
 
+    public AddEditTaskActivity() {
+
+    }
+
+    public static AddEditTaskActivity newInstance() {
+        AddEditTaskActivity fragment = new AddEditTaskActivity();
+        Bundle args = new Bundle();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_task);
+//        setContentView(R.layout.activity_task);
+
+//        userId = MyApplication.getUserId();
+//
+//        userReference = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
+//
+//        householdId = MyApplication.getHouseholdId();
+//        householdReference = FirebaseDatabase.getInstance().getReference().child("Households");
+//
+//        fillMembersArray();
+//        initRecyclerView();
+//
+//        btnSave = findViewById(R.id.btnAddEditSave);
+//
+//        editTaskName = (EditText) findViewById(R.id.addEditTaskName);
+//        editTaskPoints = (EditText) findViewById(R.id.addEditTaskPoints);
+//        editTaskDescription = (EditText) findViewById(R.id.addEditTaskDescription);
+//        editTaskDate = (EditText) findViewById(R.id.editTaskDate);
+//
+//        btnSave.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                updateTask();
+//            }
+//        });
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState ) {
+        View rootView;
+
+        rootView = inflater.inflate(R.layout.activity_add_edit_task,container,false);
 
         userId = MyApplication.getUserId();
 
@@ -58,14 +105,14 @@ public class AddEditTaskActivity extends AppCompatActivity implements MemberAssi
         householdReference = FirebaseDatabase.getInstance().getReference().child("Households");
 
         fillMembersArray();
-        initRecyclerView();
+//        initRecyclerView();
 
-        btnSave = findViewById(R.id.btnAddEditSave);
+        btnSave = rootView.findViewById(R.id.btnAddEditSave);
 
-        editTaskName = (EditText) findViewById(R.id.addEditTaskName);
-        editTaskPoints = (EditText) findViewById(R.id.addEditTaskPoints);
-        editTaskDescription = (EditText) findViewById(R.id.addEditTaskDescription);
-        editTaskDate = (EditText) findViewById(R.id.editTaskDate);
+        editTaskName = (EditText) rootView.findViewById(R.id.addEditTaskName);
+        editTaskPoints = (EditText) rootView.findViewById(R.id.addEditTaskPoints);
+        editTaskDescription = (EditText) rootView.findViewById(R.id.addEditTaskDescription);
+        editTaskDate = (EditText) rootView.findViewById(R.id.editTaskDate);
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,7 +120,26 @@ public class AddEditTaskActivity extends AppCompatActivity implements MemberAssi
                 updateTask();
             }
         });
+
+//        btnBack = rootView.findViewById()
+        return rootView;
     }
+
+    MemberAssignmentAdapterListener listener = new MemberAssignmentAdapterListener() {
+        @Override
+        public void onMemberClicked(Intent intent) {
+            String addMember = intent.getStringExtra("add_member");
+            String removeMember = intent.getStringExtra("remove_member");
+
+            if (addMember != null){
+                assigneeIds.add(addMember);
+            }
+
+            if (removeMember != null){
+                assigneeIds.remove(removeMember);
+            }
+        }
+    };
 
     private void updateTask() {
         String name = editTaskName.getText().toString().trim();
@@ -118,8 +184,10 @@ public class AddEditTaskActivity extends AppCompatActivity implements MemberAssi
             MyApplication.getDbReference().child("Users").child(assignee).child("availableTasks").child(key).setValue(task);
         }
 
-        Intent intent = new Intent(AddEditTaskActivity.this, TaskActivity.class);
-        startActivity(intent);
+//        Intent intent = new Intent(AddEditTaskActivity.this, TaskActivity.class);
+//        startActivity(intent);
+        SecondFragment secondFragment = new SecondFragment();
+        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fram, secondFragment).commit();
     }
 
     private void fillMembersArray(){
@@ -138,32 +206,33 @@ public class AddEditTaskActivity extends AppCompatActivity implements MemberAssi
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(AddEditTaskActivity.this, "Failed to get household members", Toast.LENGTH_LONG).show();
+//                Toast.makeText(AddEditTaskActivity.this, "Failed to get household members", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), "Failed to get household members", Toast.LENGTH_LONG).show();
             }
         });
     }
 
-    private void initRecyclerView(){
-        layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        recyclerView = findViewById(R.id.addEditTaskMemberList);
-        recyclerView.setLayoutManager(layoutManager);
-        adapter = new MemberAssignmentAdapter(members, this);
-        recyclerView.setAdapter(adapter);
-    }
+//    private void initRecyclerView(){
+//        layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+//        recyclerView = findViewById(R.id.addEditTaskMemberList);
+//        recyclerView.setLayoutManager(layoutManager);
+//        adapter = new MemberAssignmentAdapter(members, this, listener);
+//        recyclerView.setAdapter(adapter);
+//    }
 
-    @Override
-    public void onMemberClicked(Intent intent){
-        String addMember = intent.getStringExtra("add_member");
-        String removeMember = intent.getStringExtra("remove_member");
-
-        if(addMember != null){
-            assigneeIds.add(addMember);
-        }
-
-        if(removeMember != null){
-            assigneeIds.remove(removeMember);
-        }
-    }
+//    @Override
+//    public void onMemberClicked(Intent intent){
+//        String addMember = intent.getStringExtra("add_member");
+//        String removeMember = intent.getStringExtra("remove_member");
+//
+//        if(addMember != null){
+//            assigneeIds.add(addMember);
+//        }
+//
+//        if(removeMember != null){
+//            assigneeIds.remove(removeMember);
+//        }
+//    }
 
 
 }

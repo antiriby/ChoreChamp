@@ -58,7 +58,7 @@ public class SecondFragment extends Fragment {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
 
-    private ImageButton btnAdd;
+    private ImageButton btnAddTask;
 
     public SecondFragment() {
         // Required empty public constructor
@@ -93,15 +93,15 @@ public class SecondFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View rootView;
+        View rootViewTask;
 
         if(MyApplication.isAdmin()){
-            rootView = inflater.inflate(R.layout.activity_admin_task, container, false);
+            rootViewTask = inflater.inflate(R.layout.activity_admin_task, container, false);
         }else{
-            rootView = inflater.inflate(R.layout.activity_task, container, false);
+            rootViewTask = inflater.inflate(R.layout.activity_task, container, false);
         }
 
-        recyclerView = rootView.findViewById(R.id.taskList);
+        recyclerView = rootViewTask.findViewById(R.id.taskList);
         recyclerView.setHasFixedSize(true);
 
         layoutManager = new LinearLayoutManager(this.getContext());
@@ -156,7 +156,7 @@ public class SecondFragment extends Fragment {
         }
 
         if(MyApplication.isAdmin()) {
-            btnAdd = rootView.findViewById(R.id.btnTaskAdd);
+            btnAdd = rootViewTask.findViewById(R.id.btnTaskAdd);
 
             btnAdd.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -172,7 +172,7 @@ public class SecondFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_second2, container, false);
 
-        btnAdd = (ImageButton) rootView.findViewById(R.id.btnAddTask);
+        btnAddTask = (ImageButton) rootView.findViewById(R.id.btnAddTask);
 
         if(MyApplication.isAdmin()){
             btnAdd.setVisibility(View.VISIBLE);
