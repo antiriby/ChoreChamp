@@ -7,13 +7,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class User implements Serializable {
-    private int points, profileIconId;
-
-    public User(){}
-
     final String DEFAULT_POINTS = "0";
+
+    private int profileIconId;
     private String name, email, role, householdId, uid, points;
 
+    public User(){}
 
     public User(String name, String email, String role, String householdId, String uid, String points){
         this.name = name;
@@ -24,7 +23,7 @@ public class User implements Serializable {
         this.points = points;
     }
 
-    public User(String name, String email, Boolean admin, String householdId, String uid) {
+    public User(String name, String email, Boolean admin, String householdId, String uid, int iconId) {
         this.name = name;
         this.email = email;
         this.householdId = householdId;
@@ -105,9 +104,6 @@ public class User implements Serializable {
 
     public int getProfileIconId() {
         return profileIconId;
-    }
-    public void setUid(String uid){
-        this.uid = uid;
     }
 
     public String getPoints() { return points; }
