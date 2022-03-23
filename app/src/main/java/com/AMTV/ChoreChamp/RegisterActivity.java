@@ -212,6 +212,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                             addMembers.putExtra("HouseholdID", householdId);
                             addMembers.putExtra("CurrentUser", user);
                             addMembers.putExtra("FamilyPassword", familyPassword);
+                            addMembers.putExtra("CreateHousehold", true);
 
                             startActivity(addMembers);
 

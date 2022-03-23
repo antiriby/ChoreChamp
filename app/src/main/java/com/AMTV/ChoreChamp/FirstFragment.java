@@ -1,5 +1,6 @@
 package com.AMTV.ChoreChamp;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -131,6 +132,14 @@ public class FirstFragment extends Fragment {
             btnAdd.setVisibility(View.VISIBLE);
             
             // TODO add onClickListener
+            btnAdd.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent addMemberIntent = new Intent(getContext(), AddMemberActivity.class);
+                    addMemberIntent.putExtra("CreateHousehold", false);
+                    startActivity(addMemberIntent);
+                }
+            });
 
         }else{
             btnAdd.setVisibility(View.INVISIBLE);

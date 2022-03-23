@@ -10,6 +10,8 @@ public class Task {
     private Frequency frequency;
 //    private enum Frequency {oneTime, Weekly, Monthly};
 
+    public Task(){}
+
     public Task(String name, String description, int points, Date dueDate) {
         this.name = name;
         this.description = description;
