@@ -109,7 +109,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     user = FirebaseAuth.getInstance().getCurrentUser();
                     userId = user.getUid();
                     MyApplication.setUserId(user.getUid());
-
+                    MyApplication.setFamilyPassword(password);
                     MyApplication.setDbReference(FirebaseDatabase.getInstance().getReference());
 
                     MyApplication.getDbReference().child("Users").child(userId).child("role").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {

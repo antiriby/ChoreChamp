@@ -2,6 +2,7 @@ package com.AMTV.ChoreChamp;
 import java.util.Date;
 
 public class Task {
+
     private String name, description, points;
     private String uid;
     private String taskId;

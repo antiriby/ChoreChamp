@@ -15,7 +15,7 @@ enum Frequency {
 
 public class MyApplication extends Application {
     private static boolean isAdmin = false;
-    private static String userId, householdId, userName = "";
+    private static String userId, householdId, familyPassword, userName = "";
     private static DatabaseReference dbReference;
     final static int RED_THUMB_ID = R.mipmap.red_thumb_foreground;
     final static int ORANGE_THUMB_ID = R.mipmap.orange_thumb_foreground;
@@ -91,4 +91,10 @@ public class MyApplication extends Application {
         MyApplication.userName = userName;
     }
 
+    public static void setFamilyPassword(String familyPassword) {
+        MyApplication.familyPassword = familyPassword;
+    }
+    public static String getFamilyPassword() {
+        return familyPassword;
+    }
 }

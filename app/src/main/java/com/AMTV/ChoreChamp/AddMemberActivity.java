@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,8 +17,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,7 +35,6 @@ public class AddMemberActivity extends AppCompatActivity implements View.OnClick
 
     private int profileIconId = DEFAULT_ICON_ID;
 
-
     private EditText editTextName, editTextEmail;
     private Button addAnotherMember, nextButton;
     private Switch admin;
@@ -39,6 +42,7 @@ public class AddMemberActivity extends AppCompatActivity implements View.OnClick
     private String householdID, familyPassword;
     private User currentUser;
     private Household household;
+    private boolean shouldCreateHousehold;
 
     private HashMap<String,User> members;
 
@@ -56,6 +60,7 @@ public class AddMemberActivity extends AppCompatActivity implements View.OnClick
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_member);
 
+        getExtras();
 
         editTextName = (EditText) findViewById(R.id.txtAddMemberName);
         editTextEmail = (EditText) findViewById(R.id.txtAddMemberEmail);
@@ -68,11 +73,6 @@ public class AddMemberActivity extends AppCompatActivity implements View.OnClick
 
         admin = (Switch) findViewById(R.id.switchAddMemberAdmin);
         admin.setOnClickListener(this);
-
-        householdID = getIntent().getStringExtra("HouseholdID");
-        familyPassword = getIntent().getStringExtra("FamilyPassword");
-        currentUser = (User)getIntent().getSerializableExtra("CurrentUser");
-        household = (Household) getIntent().getSerializableExtra("Household");
 
         //Setup Icon View
         profileIcon = (ImageView)findViewById(R.id.imgAddMemberIconView);
@@ -111,12 +111,12 @@ public class AddMemberActivity extends AppCompatActivity implements View.OnClick
                 addNewMember();
                 break;
             case R.id.btnAddMemberFinish:
-                createHousehold();
-                Intent login = new Intent(this, LoginActivity.class);
-                login.putExtra("HouseholdId", householdID);
-                login.putExtra("CurrentUser", currentUser);
-                login.putExtra("Household", household);
-                startActivity(login);
+
+                if(shouldCreateHousehold) {
+                    createHousehold();
+                } else {
+                    updateHousehold();
+                }
                 break;
             case R.id.btnAddMemberRed:
                 profileIconId = MyApplication.getRedThumbId();
@@ -160,6 +160,24 @@ public class AddMemberActivity extends AppCompatActivity implements View.OnClick
         String email = editTextEmail.getText().toString().trim();
         Boolean role = admin.isChecked();
 
+        if (name.isEmpty()){
+            editTextName.setError("Name is required!");
+            editTextName.requestFocus();
+            return;
+        }
+
+        if (email.isEmpty() ){
+            editTextEmail.setError("Email Address is required!");
+            editTextEmail.requestFocus();
+            return;
+        }
+
+        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            editTextEmail.setError("Please provide a valid email address (i.e. @gmail.com");
+            editTextEmail.requestFocus();
+            return;
+        }
+
         // Push new member to database
         mAuth.createUserWithEmailAndPassword(email,familyPassword)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -187,15 +205,102 @@ public class AddMemberActivity extends AppCompatActivity implements View.OnClick
     }
 
     private void createHousehold() {
-        if(!editTextName.getText().toString().trim().isEmpty() &&
-                !editTextEmail.getText().toString().trim().isEmpty()){
-            addNewMember();
+        String name = editTextName.getText().toString().trim();
+        String email = editTextEmail.getText().toString().trim();
+
+        if (name.isEmpty()){
+            editTextName.setError("Name is required!");
+            editTextName.requestFocus();
+            return;
         }
+
+        if (email.isEmpty() ){
+            editTextEmail.setError("Email Address is required!");
+            editTextEmail.requestFocus();
+            return;
+        }
+
+        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            editTextEmail.setError("Please provide a valid email address (i.e. @gmail.com");
+            editTextEmail.requestFocus();
+            return;
+        }
+
         // Update member list for household object including the admin/current user
         members.put(currentUser.getUid(), currentUser);
         household.setMembers(members);
 
         // Push the household to database
         dbReference.child("Households").child(householdID).setValue(household);
+
+        Intent login = new Intent(this, LoginActivity.class);
+        login.putExtra("HouseholdId", householdID);
+        login.putExtra("CurrentUser", currentUser);
+        login.putExtra("Household", household);
+        startActivity(login);
+    }
+
+    public void updateHousehold(){
+        dbReference.child("Households").child(householdID).child("members").setValue(members);
+        Intent home = new Intent(this, HomeActivity.class);
+        home.putExtra("HouseholdId", householdID);
+        home.putExtra("CurrentUser", currentUser);
+        home.putExtra("Household", household);
+        startActivity(home);
+        finish();
+    }
+
+    private void getExtras(){
+        householdID = getIntent().getStringExtra("HouseholdID");
+        familyPassword = getIntent().getStringExtra("FamilyPassword");
+        currentUser = (User) getIntent().getSerializableExtra("CurrentUser");
+        household = (Household) getIntent().getSerializableExtra("Household");
+        shouldCreateHousehold = getIntent().getBooleanExtra("CreateHousehold", false);
+
+        mAuth = FirebaseAuth.getInstance();
+        dbReference = FirebaseDatabase.getInstance().getReference();
+
+        if(householdID == null){
+            householdID = MyApplication.getHouseholdId();
+        }
+
+        if(familyPassword == null){
+            familyPassword = MyApplication.getFamilyPassword();
+        }
+
+        if(members == null){
+            dbReference.child("Households").child(householdID).child("members").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    for(DataSnapshot snap : snapshot.getChildren()){
+                        User member = snap.getValue(User.class);
+                        members.put(member.getUid(), member);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Toast.makeText(AddMemberActivity.this, "Couldn't add member", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+
+//        if(household == null){
+//            dbReference.child("Households").child(householdID).addValueEventListener(new ValueEventListener() {
+//                @Override
+//                public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                    household = (Household) snapshot.getValue(Household.class);
+//                    if(household == null){
+//                        Toast.makeText(AddMemberActivity.this, "Problem with retrieving household data", Toast.LENGTH_SHORT).show();
+//                    }
+//                }
+//
+//                @Override
+//                public void onCancelled(@NonNull DatabaseError error) {
+//                    Toast.makeText(AddMemberActivity.this, "Something went wrong, try again later.", Toast.LENGTH_SHORT).show();
+//                }
+//            });
+//
+//        }
     }
 }
