@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,12 +38,14 @@ public class MemberAssignmentAdapter extends RecyclerView.Adapter<MemberAssignme
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.family_member_assignment_list, parent, false);
+
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.tv_name.setText(names.get(position).getName());
+        holder.profilePic.setImageResource(names.get(position).getProfileIconId());
 
         holder.iv_image.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,12 +78,14 @@ public class MemberAssignmentAdapter extends RecyclerView.Adapter<MemberAssignme
         CircleImageView iv_image;
         TextView tv_name;
         CardView cv_card;
+        ImageView profilePic;
 
         public ViewHolder(View itemView) {
             super(itemView);
             iv_image = itemView.findViewById(R.id.imgAddEditRewardMember);
             tv_name = itemView.findViewById(R.id.txtAddEditRewardMemberName);
             cv_card = itemView.findViewById(R.id.addEditRewardCard);
+            profilePic = itemView.findViewById(R.id.imgAddEditRewardMember);
         }
     }
 }

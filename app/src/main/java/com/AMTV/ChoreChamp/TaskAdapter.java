@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,16 +18,19 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
 import java.util.List;
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder> {
     List<Task> taskList;
     Context context;
     DatabaseReference userReference, rewardReference, householdReference;
     int userPoints;
+    HashMap<String, User> membersList = new HashMap<>();
 
 
-    public TaskAdapter(List<Task> taskList, Context context) {
+    public TaskAdapter(List<Task> taskList, HashMap<String,User> membersList, Context context) {
         this.taskList = taskList;
+        this.membersList = membersList;
         this.context = context;
     }
 
@@ -47,11 +51,20 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder> 
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.tv_taskName.setText(taskList.get(position).getName());
         holder.tv_taskPoints.setText(String.valueOf(taskList.get(position).getPoints()) + "pts");
+
+        if(MyApplication.isAdmin()){
+            holder.profilePic.setVisibility(View.VISIBLE);
+        }else{
+            holder.profilePic.setVisibility(View.INVISIBLE);
+        }
+        holder.profilePic.setImageResource(membersList.get(taskList.get(position).getUid()).getProfileIconId());
         holder.cb_taskCheck.setChecked(taskList.get(position).getIsComplete().equals("true"));
         holder.cb_taskCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Task currentTask = taskList.get(position);
+
+                userPoints = Integer.parseInt(membersList.get(currentTask.getUid()).getPoints());
 
                 userReference.child(currentTask.getUid()).child("points").addValueEventListener(new ValueEventListener() {
                     @Override
@@ -67,29 +80,31 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder> 
 
                 int currTaskPoints = Integer.parseInt(currentTask.getPoints());
 
-                // If claimed, change to unclaimed
+                // If completed, change to uncomplete
                 if(currentTask.getIsComplete().equals("true")) {
-                    rewardReference.child(currentTask.getTaskId()).child("claimed").setValue("false");
+                    rewardReference.child(currentTask.getTaskId()).child("isComplete").setValue("false");
 
                     // Set points in households
-                    householdReference.child("members").child(currentTask.getUid()).child("points").setValue("" + (userPoints + currTaskPoints));
+                    householdReference.child("members").child(currentTask.getUid()).child("points").setValue("" + (userPoints - currTaskPoints));
+
+                    // Remove from complete tasks
+                    householdReference.child("completedTasks").child(currentTask.getUid()).removeValue();
+
 
                     // Set points in users
-                    userReference.child(currentTask.getUid()).child("points").setValue("" + (userPoints + currTaskPoints));
+                    userReference.child(currentTask.getUid()).child("points").setValue("" + (userPoints - currTaskPoints));
 
-                }else{ // unclaimed, change to claimed
-                    //Check if user has enough points
-                    if(userPoints >= currTaskPoints) {
-                        rewardReference.child(taskList.get(position).getTaskId()).child("claimed").setValue("true");
+                }else{ // uncompleted, change to completed
+                    rewardReference.child(taskList.get(position).getTaskId()).child("isComplete").setValue("true");
 
-                        // Set points in households
-                        householdReference.child("members").child(currentTask.getUid()).child("points").setValue("" + (userPoints - Integer.parseInt(currentTask.getPoints())));
+                    // Set points in households
+                    householdReference.child("members").child(currentTask.getUid()).child("points").setValue("" + (userPoints + Integer.parseInt(currentTask.getPoints())));
 
-                        // Set points in users
-                        userReference.child(currentTask.getUid()).child("points").setValue("" + (userPoints - Integer.parseInt(currentTask.getPoints())));
-                    }else{
-                        Toast.makeText(view.getContext(), "You don't have enough points!", Toast.LENGTH_LONG);
-                    }
+                    // Add to completed tasks
+                    householdReference.child("completedTasks").child(currentTask.getUid()).setValue(currentTask.getUid());
+
+                    // Set points in users
+                    userReference.child(currentTask.getUid()).child("points").setValue("" + (userPoints + Integer.parseInt(currentTask.getPoints())));
                 }
 
             }
@@ -105,6 +120,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder> 
         TextView tv_taskName;
         TextView tv_taskPoints;
         CheckBox cb_taskCheck;
+        ImageView profilePic;
 
 
         public MyViewHolder(@NonNull View itemView) {
@@ -112,6 +128,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder> 
             tv_taskName = itemView.findViewById(R.id.TaskListTaskName);
             tv_taskPoints = itemView.findViewById(R.id.TaskListTaskPoints);
             cb_taskCheck = itemView.findViewById(R.id.taskCheckBox);
+            profilePic = itemView.findViewById(R.id.taskProfilePic);
 
         }
     }

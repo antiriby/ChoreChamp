@@ -30,6 +30,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -44,6 +45,7 @@ public class ThirdFragment extends Fragment {
     ImageButton btnAdd;
     TextView tvTitle, emptyMessage;
     List<Reward> rewardList = new ArrayList<>();
+    HashMap<String,User> membersList = new HashMap<>();
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -101,12 +103,28 @@ public class ThirdFragment extends Fragment {
 
         recyclerView.setLayoutManager(layoutManager);
 
-        mAdapter = new RewardsAdapter(rewardList, this.getContext());
+        mAdapter = new RewardsAdapter(rewardList, membersList, this.getContext());
         recyclerView.setAdapter(mAdapter);
 
         userId = MyApplication.getUserId();
 
         householdId = MyApplication.getHouseholdId();
+
+        FirebaseDatabase.getInstance().getReference().child("Households").child(householdId).child("members").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                membersList.clear();
+                for(DataSnapshot snapshot1 : snapshot.getChildren()){
+                    membersList.put(snapshot1.getKey(), snapshot1.getValue(User.class));
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
 
         // Admins can see all of household rewards, non-admins can only see their rewards
         if(MyApplication.isAdmin()) {
@@ -136,6 +154,8 @@ public class ThirdFragment extends Fragment {
 
                 }
             });
+
+
         } else {
             dbReference = FirebaseDatabase.getInstance().getReference().child("Users").child(userId).child("availableRewards");
             dbReference.addValueEventListener(new ValueEventListener() {
