@@ -28,6 +28,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
@@ -49,6 +50,7 @@ public class SecondFragment extends Fragment {
     FirebaseUser user;
     String userId, householdId;
     TextView tvTitle, emptyMessage;
+    HashMap<String,User> membersList = new HashMap<>();
 
 
     boolean isAdmin = false;
@@ -110,7 +112,7 @@ public class SecondFragment extends Fragment {
 
         recyclerView.setLayoutManager(layoutManager);
 
-        mAdapter = new TaskAdapter(taskList, this.getContext());
+        mAdapter = new TaskAdapter(taskList, membersList, this.getContext());
         recyclerView.setAdapter(mAdapter);
 
         userId = MyApplication.getUserId();
@@ -119,6 +121,20 @@ public class SecondFragment extends Fragment {
 
         emptyMessage = rootView.findViewById(R.id.emptyTaskListMessage);
 
+        FirebaseDatabase.getInstance().getReference().child("Households").child(householdId).child("members").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                membersList.clear();
+                for(DataSnapshot snapshot1 : snapshot.getChildren()){
+                    membersList.put(snapshot1.getKey(), snapshot1.getValue(User.class));
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         if(MyApplication.isAdmin()) {
             dbReference = FirebaseDatabase.getInstance().getReference().child("Households").child(householdId).child("availableTasks");
