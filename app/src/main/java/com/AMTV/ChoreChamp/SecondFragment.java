@@ -28,6 +28,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
@@ -48,6 +49,9 @@ public class SecondFragment extends Fragment {
     DatabaseReference dbReference;
     FirebaseUser user;
     String userId, householdId;
+    TextView tvTitle, emptyMessage;
+    HashMap<String,User> membersList = new HashMap<>();
+
 
     boolean isAdmin = false;
 
@@ -95,11 +99,11 @@ public class SecondFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_second2, container, false);
 
 
-        if(MyApplication.isAdmin()){
-            rootView = inflater.inflate(R.layout.activity_admin_task, container, false);
-        }else{
-            rootView = inflater.inflate(R.layout.activity_task, container, false);
-        }
+//        if(MyApplication.isAdmin()){
+//            rootView = inflater.inflate(R.layout.activity_admin_task, container, false);
+//        }else{
+//            rootView = inflater.inflate(R.layout.activity_task, container, false);
+//        }
 
         recyclerView = rootView.findViewById(R.id.taskList);
         recyclerView.setHasFixedSize(true);
@@ -108,12 +112,29 @@ public class SecondFragment extends Fragment {
 
         recyclerView.setLayoutManager(layoutManager);
 
-        mAdapter = new TaskAdapter(taskList, this.getContext());
+        mAdapter = new TaskAdapter(taskList, membersList, this.getContext());
         recyclerView.setAdapter(mAdapter);
 
         userId = MyApplication.getUserId();
 
         householdId = MyApplication.getHouseholdId();
+
+        emptyMessage = rootView.findViewById(R.id.emptyTaskListMessage);
+
+        FirebaseDatabase.getInstance().getReference().child("Households").child(householdId).child("members").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                membersList.clear();
+                for(DataSnapshot snapshot1 : snapshot.getChildren()){
+                    membersList.put(snapshot1.getKey(), snapshot1.getValue(User.class));
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         if(MyApplication.isAdmin()) {
             dbReference = FirebaseDatabase.getInstance().getReference().child("Households").child(householdId).child("availableTasks");
@@ -125,6 +146,13 @@ public class SecondFragment extends Fragment {
                         Task ld = snapshot1.getValue(Task.class);
                         taskList.add(ld);
                     }
+
+                    if (taskList.size() > 0) {
+                        emptyMessage.setVisibility(View.INVISIBLE);
+                    } else {
+                        emptyMessage.setVisibility(View.VISIBLE);
+                    }
+
 
                     mAdapter.notifyDataSetChanged();
                 }
@@ -156,41 +184,41 @@ public class SecondFragment extends Fragment {
         }
 
         if(MyApplication.isAdmin()) {
-            btnAdd = rootView.findViewById(R.id.btnTaskAdd);
+            btnAdd = rootView.findViewById(R.id.btnAddTask);
 
             btnAdd.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(getActivity(), AddEditTaskActivity.class);
-
-                    startActivity(intent);
+                    AddEditTaskFragment addEditTaskFragment = new AddEditTaskFragment();
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fram, addEditTaskFragment).commit();
                 }
             });
         }
         // Inflate the layout for this fragment
 
-        TextView emptyMessage = rootView.findViewById(R.id.emptyTaskListMessage);
 
 
 
 
         btnAdd = (ImageButton) rootView.findViewById(R.id.btnAddTask);
 
-        if(MyApplication.isAdmin()){
+        if(MyApplication.isAdmin()) {
             btnAdd.setVisibility(View.VISIBLE);
 
             //TODO Uncomment when task list stuff added
-//        if(taskList.size() > 0){
-//            emptyMessage.setVisibility(View.INVISIBLE);
-//        }else{
-            emptyMessage.setVisibility(View.VISIBLE);
-//        }
-        }else{
-            btnAdd.setVisibility(View.INVISIBLE);
-            emptyMessage.setVisibility(View.INVISIBLE);
+            if (taskList.size() > 0) {
+                emptyMessage.setVisibility(View.INVISIBLE);
+            } else {
+                emptyMessage.setVisibility(View.VISIBLE);
+            }
+            btnAdd.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    AddEditTaskFragment addEditTaskFragment = new AddEditTaskFragment();
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fram, addEditTaskFragment).commit();
+                }
+            });
         }
-
-
         return rootView;
     }
 }
