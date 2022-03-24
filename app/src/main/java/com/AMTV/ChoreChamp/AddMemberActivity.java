@@ -195,10 +195,10 @@ public class AddMemberActivity extends AppCompatActivity implements View.OnClick
 
                             // Add new member to the member ArrayList
                             members.put(user.getUid(), user);
-                            Toast.makeText(AddMemberActivity.this, "Member was successfully added to household!", Toast.LENGTH_LONG).show();
+                            Toast.makeText(AddMemberActivity.this, "Member was successfully added to household!", Toast.LENGTH_SHORT).show();
 
                         } else {
-                            Toast.makeText(AddMemberActivity.this, "Something went wrong. Please try Again!", Toast.LENGTH_LONG).show();
+                            Toast.makeText(AddMemberActivity.this, "Something went wrong. Please try Again!", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

@@ -11,7 +11,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:button="@drawable/check"
+        android:button="@drawable/custom_checkmark"
+        android:buttonTint="@drawable/custom_checkmark"
+        android:clickable="true"
+        android:focusable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -22,11 +25,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:text="Points"
         android:fontFamily="@font/barlow"
+        android:text="Points"
+        android:textColor="@color/black"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="@+id/TaskListTaskName"
-        app:layout_constraintTop_toBottomOf="@+id/TaskListTaskName"/>
+        app:layout_constraintTop_toBottomOf="@+id/TaskListTaskName" />
 
     <TextView
         android:id="@+id/TaskListTaskName"
@@ -36,6 +40,7 @@
         android:layout_marginTop="15dp"
         android:fontFamily="@font/barlow"
         android:text="Task"
+        android:textColor="@color/black"
         android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@+id/taskCheckBox"
         app:layout_constraintTop_toTopOf="parent" />

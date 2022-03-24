@@ -13,7 +13,6 @@
         android:layout_height="56dp"
         android:background="@color/bottom_nav_primary"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -58,7 +57,7 @@
             android:id="@+id/btnProfileLogout"
             android:layout_width="79dp"
             android:layout_height="27dp"
-            android:layout_marginStart="52dp"
+            android:layout_marginStart="50dp"
             android:background="@color/bottom_nav_primary"
             android:text="Logout"
             android:textAlignment="center"
@@ -72,14 +71,14 @@
 
     <TextView
         android:id="@+id/txtProfileName"
-        android:layout_width="156dp"
-        android:layout_height="55dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="13dp"
-        android:fontFamily="@font/barlow"
+        android:fontFamily="@font/barlow_semibold"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="40sp"
-        android:textStyle="italic|bold"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imgProfileIcon" />
@@ -96,12 +95,14 @@
 
     <TextView
         android:id="@+id/txtProfilePoints"
-        android:layout_width="86dp"
-        android:layout_height="48dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/barlow"
         android:textAlignment="center"
+        android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtProfileName" />
 

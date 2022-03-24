@@ -191,23 +191,23 @@ public class SecondFragment extends Fragment {
         // Inflate the layout for this fragment
         btnAdd = (ImageButton) rootView.findViewById(R.id.btnAddTask);
 
-        if(MyApplication.isAdmin()) {
-            btnAdd.setVisibility(View.VISIBLE);
-
-//            //TODO Uncomment when task list stuff added
-//            if (taskList.size() > 0) {
-//                emptyMessage.setVisibility(View.INVISIBLE);
-//            } else {
-//                emptyMessage.setVisibility(View.VISIBLE);
-//            }
-            btnAdd.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    AddEditTaskFragment addEditTaskFragment = new AddEditTaskFragment();
-                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fram, addEditTaskFragment).commit();
-                }
-            });
-        }
+//        if(MyApplication.isAdmin()) {
+//            btnAdd.setVisibility(View.VISIBLE);
+//
+////            //TODO Uncomment when task list stuff added
+////            if (taskList.size() > 0) {
+////                emptyMessage.setVisibility(View.INVISIBLE);
+////            } else {
+////                emptyMessage.setVisibility(View.VISIBLE);
+////            }
+//            btnAdd.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    AddEditTaskFragment addEditTaskFragment = new AddEditTaskFragment();
+//                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fram, addEditTaskFragment).commit();
+//                }
+//            });
+//        }
         return rootView;
     }
 }

@@ -80,9 +80,10 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder> 
 
                 int currTaskPoints = Integer.parseInt(currentTask.getPoints());
 
-                // If completed, change to uncomplete
+                // If completed, change to incomplete
                 if(currentTask.getIsComplete().equals("true")) {
                     rewardReference.child(currentTask.getTaskId()).child("isComplete").setValue("false");
+                    userReference.child(currentTask.getUid()).child("availableTasks").child(currentTask.getTaskId()).child("isComplete").setValue("false");
 
                     // Set points in households
                     householdReference.child("members").child(currentTask.getUid()).child("points").setValue("" + (userPoints - currTaskPoints));
@@ -90,12 +91,12 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder> 
                     // Remove from complete tasks
                     householdReference.child("completedTasks").child(currentTask.getUid()).removeValue();
 
-
                     // Set points in users
                     userReference.child(currentTask.getUid()).child("points").setValue("" + (userPoints - currTaskPoints));
 
-                }else{ // uncompleted, change to completed
+                }else{ // incomplete, change to completed
                     rewardReference.child(taskList.get(position).getTaskId()).child("isComplete").setValue("true");
+                    userReference.child(currentTask.getUid()).child("availableTasks").child(currentTask.getTaskId()).child("isComplete").setValue("true");
 
                     // Set points in households
                     householdReference.child("members").child(currentTask.getUid()).child("points").setValue("" + (userPoints + Integer.parseInt(currentTask.getPoints())));
