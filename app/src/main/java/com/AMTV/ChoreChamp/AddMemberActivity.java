@@ -284,23 +284,5 @@ public class AddMemberActivity extends AppCompatActivity implements View.OnClick
                 }
             });
         }
-
-//        if(household == null){
-//            dbReference.child("Households").child(householdID).addValueEventListener(new ValueEventListener() {
-//                @Override
-//                public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                    household = (Household) snapshot.getValue(Household.class);
-//                    if(household == null){
-//                        Toast.makeText(AddMemberActivity.this, "Problem with retrieving household data", Toast.LENGTH_SHORT).show();
-//                    }
-//                }
-//
-//                @Override
-//                public void onCancelled(@NonNull DatabaseError error) {
-//                    Toast.makeText(AddMemberActivity.this, "Something went wrong, try again later.", Toast.LENGTH_SHORT).show();
-//                }
-//            });
-//
-//        }
     }
 }

@@ -99,12 +99,6 @@ public class SecondFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_second2, container, false);
 
 
-//        if(MyApplication.isAdmin()){
-//            rootView = inflater.inflate(R.layout.activity_admin_task, container, false);
-//        }else{
-//            rootView = inflater.inflate(R.layout.activity_task, container, false);
-//        }
-
         recyclerView = rootView.findViewById(R.id.taskList);
         recyclerView.setHasFixedSize(true);
 
@@ -152,8 +146,7 @@ public class SecondFragment extends Fragment {
                     } else {
                         emptyMessage.setVisibility(View.VISIBLE);
                     }
-
-
+                    
                     mAdapter.notifyDataSetChanged();
                 }
 
@@ -194,12 +187,8 @@ public class SecondFragment extends Fragment {
                 }
             });
         }
+
         // Inflate the layout for this fragment
-
-
-
-
-
         btnAdd = (ImageButton) rootView.findViewById(R.id.btnAddTask);
 
         if(MyApplication.isAdmin()) {
