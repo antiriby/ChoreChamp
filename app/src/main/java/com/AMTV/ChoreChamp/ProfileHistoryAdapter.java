@@ -1,6 +1,7 @@
 package com.AMTV.ChoreChamp;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,21 +11,25 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.List;
 
 public class ProfileHistoryAdapter extends RecyclerView.Adapter<ProfileHistoryAdapter.historyViewHolder> implements Serializable {
 
     private Context context;
     private User userProfile;
+    private List<Object> historyList;
 
-    public ProfileHistoryAdapter(@NonNull Context context, @NonNull User userProfile) {
+    public ProfileHistoryAdapter(@NonNull Context context, @NonNull User userProfile, List<Object>historyList) {
         super();
         this.context = context;
         this.userProfile = userProfile;
+        this.historyList = historyList;
     }
 
     @Override
     public int getItemCount() {
-        return 1;
+        return historyList.size();
     }
 
     @NonNull
@@ -39,8 +44,20 @@ public class ProfileHistoryAdapter extends RecyclerView.Adapter<ProfileHistoryAd
 
     @Override
     public void onBindViewHolder(@NonNull ProfileHistoryAdapter.historyViewHolder holder, int position) {
-        holder.name.setText(userProfile.getName());
-        holder.points.setText(userProfile.getPoints() + " pts");
+        int positiveColor = context.getColor(R.color.positive_points);
+        int negativeColor = context.getColor(R.color.negative_points);
+
+        if(historyList.get(position) instanceof Reward){
+            Reward reward = (Reward) historyList.get(position);
+            holder.name.setText(reward.getName());
+            holder.points.setText("-" + reward.getPoints() + " pts");
+            holder.points.setTextColor(negativeColor);
+        } else if (historyList.get(position) instanceof Task){
+            Task task = (Task) historyList.get(position);
+            holder.name.setText(task.getName());
+            holder.points.setText("+" + task.getPoints() + " pts");
+            holder.points.setTextColor(positiveColor);
+        }
     }
 
     class historyViewHolder extends RecyclerView.ViewHolder {

@@ -207,22 +207,9 @@ public class AddMemberActivity extends AppCompatActivity implements View.OnClick
     private void createHousehold() {
         String name = editTextName.getText().toString().trim();
         String email = editTextEmail.getText().toString().trim();
-
-        if (name.isEmpty()){
-            editTextName.setError("Name is required!");
-            editTextName.requestFocus();
-            return;
-        }
-
-        if (email.isEmpty() ){
-            editTextEmail.setError("Email Address is required!");
-            editTextEmail.requestFocus();
-            return;
-        }
-
-        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            editTextEmail.setError("Please provide a valid email address (i.e. @gmail.com");
-            editTextEmail.requestFocus();
+        if(!name.isEmpty() && !email.isEmpty() ){
+            nextButton.setError("Please press Add Member before continuing");
+            addAnotherMember.requestFocus();
             return;
         }
 

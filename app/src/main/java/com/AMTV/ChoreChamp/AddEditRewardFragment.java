@@ -161,7 +161,7 @@ public class AddEditRewardFragment extends Fragment {
         Map<String, Object> childUpdates = new HashMap<>();
 
         for(String assignee : assigneeIds){
-            String key = householdReference.child(householdId).child("availableRewards").push().getKey();
+            String key = householdReference.child(householdId).child("availableRewards").push().getKey().substring(1);
             Reward reward = new Reward(name, pointsStr, assignee, key, description, "false");
 
             householdReference.child(householdId).child("availableRewards").child(key).setValue(reward);
