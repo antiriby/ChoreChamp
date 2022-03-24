@@ -182,13 +182,13 @@ public class ThirdFragment extends Fragment {
         if(MyApplication.isAdmin()){
             btnAdd = rootView.findViewById(R.id.btnAddReward);
 
-            // Display a message if the list is empty
+//            // Display a message if the list is empty
             emptyMessage = rootView.findViewById(R.id.emptyRewardListMessage);
-            if(rewardList.size() > 0){
-                emptyMessage.setVisibility(View.INVISIBLE);
-            }else{
-                emptyMessage.setVisibility(View.VISIBLE);
-            }
+//            if(rewardList.size() > 0){
+//                emptyMessage.setVisibility(View.INVISIBLE);
+//            }else{
+//                emptyMessage.setVisibility(View.VISIBLE);
+//            }
 
             btnAdd.setOnClickListener(new View.OnClickListener() {
                 @Override

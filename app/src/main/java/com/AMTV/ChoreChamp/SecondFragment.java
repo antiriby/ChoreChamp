@@ -194,12 +194,12 @@ public class SecondFragment extends Fragment {
         if(MyApplication.isAdmin()) {
             btnAdd.setVisibility(View.VISIBLE);
 
-            //TODO Uncomment when task list stuff added
-            if (taskList.size() > 0) {
-                emptyMessage.setVisibility(View.INVISIBLE);
-            } else {
-                emptyMessage.setVisibility(View.VISIBLE);
-            }
+//            //TODO Uncomment when task list stuff added
+//            if (taskList.size() > 0) {
+//                emptyMessage.setVisibility(View.INVISIBLE);
+//            } else {
+//                emptyMessage.setVisibility(View.VISIBLE);
+//            }
             btnAdd.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

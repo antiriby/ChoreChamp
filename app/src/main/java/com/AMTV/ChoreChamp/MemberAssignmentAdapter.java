@@ -6,9 +6,9 @@ import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -38,7 +38,6 @@ public class MemberAssignmentAdapter extends RecyclerView.Adapter<MemberAssignme
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.family_member_assignment_list, parent, false);
-
         return new ViewHolder(view);
     }
 
@@ -46,21 +45,19 @@ public class MemberAssignmentAdapter extends RecyclerView.Adapter<MemberAssignme
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.tv_name.setText(names.get(position).getName());
         holder.profilePic.setImageResource(names.get(position).getProfileIconId());
-
         holder.iv_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(holder.iv_image.getBorderColor() == Color.RED){
-                    holder.iv_image.setBorderColor(Color.BLACK);
-                    holder.tv_name.setTextColor(Color.BLACK);
+                if(holder.iv_image.getBorderWidth() > 0){
+                    holder.iv_image.setBorderWidth(0);
 
                     Intent intent = new Intent();
                     intent.putExtra("remove_member", names.get(holder.getBindingAdapterPosition()).getUid());
                     listener.onMemberClicked(intent);
 
                 }else{
-                    holder.iv_image.setBorderColor(Color.RED);
-                    holder.tv_name.setTextColor(Color.RED);
+                    holder.iv_image.setBorderWidth(3);
+
                     Intent intent = new Intent();
                     intent.putExtra("add_member", names.get(holder.getBindingAdapterPosition()).getUid());
                     listener.onMemberClicked(intent);
