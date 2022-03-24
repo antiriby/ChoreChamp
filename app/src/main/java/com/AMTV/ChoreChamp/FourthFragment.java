@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,7 +44,7 @@ public class FourthFragment extends Fragment implements View.OnClickListener {
     private TextView nameTextView, pointsTextView;
     private ImageView profileImgView;
     private User currentUser;
-    private Button logoutButton;
+    private TextView logoutButton;
 
     private String householdId, userId;
     private RecyclerView recyclerView;
