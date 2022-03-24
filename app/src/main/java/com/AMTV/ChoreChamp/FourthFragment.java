@@ -32,30 +32,17 @@ import com.google.firebase.database.ValueEventListener;
  */
 public class FourthFragment extends Fragment implements View.OnClickListener {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-//    private static final String ARG_PARAM1 = "param1";
-//    private static final String ARG_PARAM2 = "param2";
     private DatabaseReference dbReference;
     private TextView nameTextView, pointsTextView;
-    private EditText editPoints;
-    private ImageView profileImgView, profileEditPoints;
+    private ImageView profileImgView;
     private User currentUser;
     private Button logoutButton;
-    private boolean isEditingPoints = false;
 
 
     public FourthFragment() {
         // Required empty public constructor
     }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-
-     * @return A new instance of fragment FourthFragment.
-     */
+    
     // TODO: Rename and change types and number of parameters
     public static FourthFragment newInstance(String param1, String param2) {
         FourthFragment fragment = new FourthFragment();
@@ -80,17 +67,10 @@ public class FourthFragment extends Fragment implements View.OnClickListener {
         nameTextView = rootView.findViewById(R.id.txtProfileName);
         pointsTextView = rootView.findViewById(R.id.txtProfilePoints);
         profileImgView = rootView.findViewById(R.id.imgProfileIcon);
-//        editPoints = rootView.findViewById(R.id.txtProfileEditPOints);
-//        editPoints.setVisibility(View.INVISIBLE);
+
 
         logoutButton = rootView.findViewById(R.id.btnProfileLogout);
         logoutButton.setOnClickListener(this);
-
-//        if (currentUser.getRole() == "Admin") {
-//            profileEditPoints.setVisibility(View.VISIBLE);
-//        } else {
-//            profileEditPoints.setVisibility(View.INVISIBLE);
-//        }
 
         //Add completed tasks field to User
         dbReference.child("Users").child(MyApplication.getUserId()).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -119,29 +99,6 @@ public class FourthFragment extends Fragment implements View.OnClickListener {
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 break;
-//            case R.id.imgProfileEditPoints:
-//                if(currentUser.getRole() ==  "Admin" && !isEditingPoints){
-//                    editPoints.setVisibility(View.VISIBLE);
-//                    //editPoints();
-//                } else if (isEditingPoints) {
-//                    editPoints.setVisibility(View.INVISIBLE);
-//                }
-//                break;
         }
     }
-
-//    private void editPoints() {
-//        isEditingPoints = true;
-//        dbReference.child("Users").addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                User changed u
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        })
-//    }
 }
