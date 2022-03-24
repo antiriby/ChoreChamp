@@ -51,8 +51,6 @@ public class SecondFragment extends Fragment {
     String userId, householdId;
     TextView tvTitle, emptyMessage;
     HashMap<String,User> membersList = new HashMap<>();
-
-
     boolean isAdmin = false;
 
     //Button btnAdd;
