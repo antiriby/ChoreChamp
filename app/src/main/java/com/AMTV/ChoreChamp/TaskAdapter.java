@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,13 +50,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder> 
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.tv_taskName.setText(taskList.get(position).getName());
         holder.tv_taskPoints.setText(String.valueOf(taskList.get(position).getPoints()) + "pts");
-
-        if(MyApplication.isAdmin()){
-            holder.profilePic.setVisibility(View.VISIBLE);
-        }else{
-            holder.profilePic.setVisibility(View.INVISIBLE);
-        }
-        holder.profilePic.setImageResource(membersList.get(taskList.get(position).getUid()).getProfileIconId());
         holder.cb_taskCheck.setChecked(taskList.get(position).getIsComplete().equals("true"));
         holder.cb_taskCheck.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,7 +112,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder> 
         TextView tv_taskName;
         TextView tv_taskPoints;
         CheckBox cb_taskCheck;
-        ImageView profilePic;
 
 
         public MyViewHolder(@NonNull View itemView) {
@@ -128,7 +119,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder> 
             tv_taskName = itemView.findViewById(R.id.TaskListTaskName);
             tv_taskPoints = itemView.findViewById(R.id.TaskListTaskPoints);
             cb_taskCheck = itemView.findViewById(R.id.taskCheckBox);
-            profilePic = itemView.findViewById(R.id.taskProfilePic);
 
         }
     }

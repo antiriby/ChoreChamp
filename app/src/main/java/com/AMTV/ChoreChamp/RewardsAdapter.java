@@ -52,12 +52,6 @@ public class RewardsAdapter extends RecyclerView.Adapter<RewardsAdapter.MyViewHo
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.tv_rewardName.setText(rewardList.get(position).getName());
         holder.tv_rewardPoints.setText(String.valueOf(rewardList.get(position).getPoints()) + " pts");
-        if(MyApplication.isAdmin()){
-            holder.profilePic.setVisibility(View.VISIBLE);
-        }else{
-            holder.profilePic.setVisibility(View.INVISIBLE);
-        }
-        holder.profilePic.setImageResource(membersList.get(rewardList.get(position).getUid()).getProfileIconId());
         holder.cb_rewardCheck.setChecked(rewardList.get(position).getClaimed().equals("true"));
         holder.cb_rewardCheck.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,14 +118,12 @@ public class RewardsAdapter extends RecyclerView.Adapter<RewardsAdapter.MyViewHo
         TextView tv_rewardName;
         TextView tv_rewardPoints;
         CheckBox cb_rewardCheck;
-        ImageView profilePic;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             tv_rewardName = itemView.findViewById(R.id.RewardListRewardName);
             tv_rewardPoints = itemView.findViewById(R.id.RewardListRewardPoints);
             cb_rewardCheck = itemView.findViewById(R.id.rewardCheckBox);
-            profilePic = itemView.findViewById(R.id.rewardProfilePic);
         }
     }
 }

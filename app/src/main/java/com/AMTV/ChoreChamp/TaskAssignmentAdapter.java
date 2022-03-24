@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -41,7 +40,6 @@ public class TaskAssignmentAdapter extends RecyclerView.Adapter<TaskAssignmentAd
     @Override
     public void onBindViewHolder(@NonNull TaskAssignmentAdapter.ViewHolder holder, int position) {
         holder.tv_name.setText(names.get(position).getName());
-        holder.profilePic.setImageResource(names.get(position).getProfileIconId());
 
         holder.iv_image.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,14 +72,12 @@ public class TaskAssignmentAdapter extends RecyclerView.Adapter<TaskAssignmentAd
         CircleImageView iv_image;
         TextView tv_name;
         CardView cv_card;
-        ImageView profilePic;
 
         public ViewHolder(View itemView) {
             super(itemView);
             iv_image = itemView.findViewById(R.id.imgAddEditRewardMember);
             tv_name = itemView.findViewById(R.id.txtAddEditRewardMemberName);
             cv_card = itemView.findViewById(R.id.addEditRewardCard);
-            profilePic = itemView.findViewById(R.id.imgAddEditRewardMember);
         }
     }
 }

@@ -5,7 +5,6 @@ import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -47,19 +46,17 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.usersViewHolde
     @Override
     public void onBindViewHolder(@NonNull usersViewHolder holder, int position) {
         holder.name.setText(userList.get(position).getName());
-        holder.points.setText(userList.get(position).getPoints() + " pts");
-        holder.profilePic.setImageResource(userList.get(position).getProfileIconId());
+        //TODO: add points to User Class and display in RecyclerView
+        //holder.points.setText(userList.get(position).getPoints());
     }
 
     class usersViewHolder extends RecyclerView.ViewHolder {
         TextView name, points;
-        ImageView profilePic;
         public usersViewHolder(@NonNull View itemView)
         {
             super(itemView);
             name = itemView.findViewById(R.id.txtHouseholdListName);
-            points = itemView.findViewById(R.id.txtHouseholdListPoints);
-            profilePic = itemView.findViewById(R.id.imgHouseholdListProfile);
+            //points = itemView.findViewById(R.id.txtHouseholdListPoints);
         }
     }
 }
