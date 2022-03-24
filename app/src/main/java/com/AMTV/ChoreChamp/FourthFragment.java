@@ -5,6 +5,8 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -14,15 +16,21 @@ import android.view.ViewGroup;
 
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.internal.Objects;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 
 /**
@@ -32,30 +40,24 @@ import com.google.firebase.database.ValueEventListener;
  */
 public class FourthFragment extends Fragment implements View.OnClickListener {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-//    private static final String ARG_PARAM1 = "param1";
-//    private static final String ARG_PARAM2 = "param2";
     private DatabaseReference dbReference;
     private TextView nameTextView, pointsTextView;
-    private EditText editPoints;
-    private ImageView profileImgView, profileEditPoints;
+    private ImageView profileImgView;
     private User currentUser;
-    private Button logoutButton;
-    private boolean isEditingPoints = false;
+    private TextView logoutButton;
+
+    private String householdId, userId;
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private LinearLayoutManager layoutManager;
+
+    private List<Object> historyObjects = new ArrayList<>();
 
 
     public FourthFragment() {
         // Required empty public constructor
     }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-
-     * @return A new instance of fragment FourthFragment.
-     */
+    
     // TODO: Rename and change types and number of parameters
     public static FourthFragment newInstance(String param1, String param2) {
         FourthFragment fragment = new FourthFragment();
@@ -70,6 +72,8 @@ public class FourthFragment extends Fragment implements View.OnClickListener {
         if (getArguments() != null) { }
 
         dbReference = MyApplication.getDbReference();
+        householdId = MyApplication.getHouseholdId();
+        userId = MyApplication.getUserId();
     }
 
     @Override
@@ -80,20 +84,24 @@ public class FourthFragment extends Fragment implements View.OnClickListener {
         nameTextView = rootView.findViewById(R.id.txtProfileName);
         pointsTextView = rootView.findViewById(R.id.txtProfilePoints);
         profileImgView = rootView.findViewById(R.id.imgProfileIcon);
-//        editPoints = rootView.findViewById(R.id.txtProfileEditPOints);
-//        editPoints.setVisibility(View.INVISIBLE);
 
         logoutButton = rootView.findViewById(R.id.btnProfileLogout);
         logoutButton.setOnClickListener(this);
 
-//        if (currentUser.getRole() == "Admin") {
-//            profileEditPoints.setVisibility(View.VISIBLE);
-//        } else {
-//            profileEditPoints.setVisibility(View.INVISIBLE);
-//        }
+        recyclerView = rootView.findViewById(R.id.recyclerProfileHistory);
+        recyclerView.setHasFixedSize(true);
+
+        layoutManager = new LinearLayoutManager(this.getContext());
+
+        recyclerView.setLayoutManager(layoutManager);
+
+
+        mAdapter = new ProfileHistoryAdapter(getContext(),currentUser, historyObjects);
+        recyclerView.setAdapter(mAdapter);
+
 
         //Add completed tasks field to User
-        dbReference.child("Users").child(MyApplication.getUserId()).addListenerForSingleValueEvent(new ValueEventListener() {
+        dbReference.child("Users").child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 currentUser = snapshot.getValue(User.class);
@@ -108,6 +116,9 @@ public class FourthFragment extends Fragment implements View.OnClickListener {
                 Toast.makeText(getActivity(),"Error loading profile. Please try again later.", Toast.LENGTH_LONG).show();
             }
         });
+
+        getHistory();
+
         return rootView;
     }
 
@@ -119,29 +130,53 @@ public class FourthFragment extends Fragment implements View.OnClickListener {
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 break;
-//            case R.id.imgProfileEditPoints:
-//                if(currentUser.getRole() ==  "Admin" && !isEditingPoints){
-//                    editPoints.setVisibility(View.VISIBLE);
-//                    //editPoints();
-//                } else if (isEditingPoints) {
-//                    editPoints.setVisibility(View.INVISIBLE);
-//                }
-//                break;
         }
     }
 
-//    private void editPoints() {
-//        isEditingPoints = true;
-//        dbReference.child("Users").addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                User changed u
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        })
-//    }
+    public void getHistory(){
+        historyObjects.clear();
+        // Get available rewards from database
+        dbReference = FirebaseDatabase.getInstance().getReference().child("Households").child(householdId).child("availableRewards");
+        dbReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot snapshot1 : snapshot.getChildren()) {
+                    Reward ld = snapshot1.getValue(Reward.class);
+                    String assignedUser = ld.getUid();
+
+                    if(assignedUser.equals(userId) && ld.getClaimed().equals("true")){
+                        historyObjects.add(ld);
+                    }
+                }
+                mAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getContext(), "Something went wrong!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // Get available tasks from database
+        dbReference = FirebaseDatabase.getInstance().getReference().child("Households").child(householdId).child("availableTasks");
+        dbReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot snapshot1 : snapshot.getChildren()) {
+                    Task ld = snapshot1.getValue(Task.class);
+                    String assignedUser = ld.getUid();
+
+                    if(assignedUser.equals(userId) && ld.getIsComplete().equals("true")){
+                        historyObjects.add(ld);
+                    }
+                }
+                mAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getContext(), "Something went wrong!", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 }

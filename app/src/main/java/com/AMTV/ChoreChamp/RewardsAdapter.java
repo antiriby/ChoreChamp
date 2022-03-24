@@ -1,6 +1,7 @@
 package com.AMTV.ChoreChamp;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,13 +59,13 @@ public class RewardsAdapter extends RecyclerView.Adapter<RewardsAdapter.MyViewHo
             holder.profilePic.setVisibility(View.INVISIBLE);
         }
         holder.profilePic.setImageResource(membersList.get(rewardList.get(position).getUid()).getProfileIconId());
+//        holder.cb_rewardCheck.setButtonTintList(new ColorStateList());
         holder.cb_rewardCheck.setChecked(rewardList.get(position).getClaimed().equals("true"));
         holder.cb_rewardCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Reward currentReward = rewardList.get(position);
                 userPoints = Integer.parseInt(membersList.get(currentReward.getUid()).getPoints());
-
 //                userReference.child(currentReward.getUid()).child("points").addValueEventListener(new ValueEventListener() {
 //                    @Override
 //                    public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -82,6 +83,7 @@ public class RewardsAdapter extends RecyclerView.Adapter<RewardsAdapter.MyViewHo
                 // If claimed, change to unclaimed
                 if(currentReward.getClaimed().equals("true")) {
                     rewardReference.child(currentReward.getRewardId()).child("claimed").setValue("false");
+                    userReference.child(currentReward.getUid()).child("availableRewards").child(currentReward.getRewardId()).child("claimed").setValue("false");
 
                     // Set points in households
                     householdReference.child("members").child(currentReward.getUid()).child("points").setValue("" + (userPoints + currRewardPoints));
@@ -96,6 +98,7 @@ public class RewardsAdapter extends RecyclerView.Adapter<RewardsAdapter.MyViewHo
                     //Check if user has enough points
                     if(userPoints >= currRewardPoints) {
                         rewardReference.child(rewardList.get(position).getRewardId()).child("claimed").setValue("true");
+                        userReference.child(currentReward.getUid()).child("availableRewards").child(currentReward.getRewardId()).child("claimed").setValue("true");
 
                         // Set points in households
                         householdReference.child("members").child(currentReward.getUid()).child("points").setValue("" + (userPoints - Integer.parseInt(currentReward.getPoints())));

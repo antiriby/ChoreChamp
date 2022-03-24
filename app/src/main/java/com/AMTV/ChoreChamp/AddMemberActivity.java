@@ -195,10 +195,10 @@ public class AddMemberActivity extends AppCompatActivity implements View.OnClick
 
                             // Add new member to the member ArrayList
                             members.put(user.getUid(), user);
-                            Toast.makeText(AddMemberActivity.this, "Member was successfully added to household!", Toast.LENGTH_LONG).show();
+                            Toast.makeText(AddMemberActivity.this, "Member was successfully added to household!", Toast.LENGTH_SHORT).show();
 
                         } else {
-                            Toast.makeText(AddMemberActivity.this, "Something went wrong. Please try Again!", Toast.LENGTH_LONG).show();
+                            Toast.makeText(AddMemberActivity.this, "Something went wrong. Please try Again!", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -207,22 +207,9 @@ public class AddMemberActivity extends AppCompatActivity implements View.OnClick
     private void createHousehold() {
         String name = editTextName.getText().toString().trim();
         String email = editTextEmail.getText().toString().trim();
-
-        if (name.isEmpty()){
-            editTextName.setError("Name is required!");
-            editTextName.requestFocus();
-            return;
-        }
-
-        if (email.isEmpty() ){
-            editTextEmail.setError("Email Address is required!");
-            editTextEmail.requestFocus();
-            return;
-        }
-
-        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            editTextEmail.setError("Please provide a valid email address (i.e. @gmail.com");
-            editTextEmail.requestFocus();
+        if(!name.isEmpty() && !email.isEmpty() ){
+            nextButton.setError("Please press Add Member before continuing");
+            addAnotherMember.requestFocus();
             return;
         }
 
@@ -284,23 +271,5 @@ public class AddMemberActivity extends AppCompatActivity implements View.OnClick
                 }
             });
         }
-
-//        if(household == null){
-//            dbReference.child("Households").child(householdID).addValueEventListener(new ValueEventListener() {
-//                @Override
-//                public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                    household = (Household) snapshot.getValue(Household.class);
-//                    if(household == null){
-//                        Toast.makeText(AddMemberActivity.this, "Problem with retrieving household data", Toast.LENGTH_SHORT).show();
-//                    }
-//                }
-//
-//                @Override
-//                public void onCancelled(@NonNull DatabaseError error) {
-//                    Toast.makeText(AddMemberActivity.this, "Something went wrong, try again later.", Toast.LENGTH_SHORT).show();
-//                }
-//            });
-//
-//        }
     }
 }

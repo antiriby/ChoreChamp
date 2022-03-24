@@ -162,7 +162,7 @@ public class AddEditTaskFragment extends Fragment {
         Map<String, Object> childUpdates = new HashMap<>();
 
         for(String assignee : assigneeIds){
-            String key = householdReference.child(householdId).child("availableTasks").push().getKey();
+            String key = householdReference.child(householdId).child("availableTasks").push().getKey().substring(1);
             Task task = new Task(name, description, pointsStr, assignee, key);
 
             householdReference.child(householdId).child("availableTasks").child(key).setValue(task);
