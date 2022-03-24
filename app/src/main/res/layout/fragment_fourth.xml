@@ -56,9 +56,10 @@
 
     <TextView
         android:id="@+id/txtProfileName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="156dp"
+        android:layout_height="55dp"
         android:layout_marginTop="13dp"
+        android:fontFamily="@font/barlow"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="40sp"
@@ -72,7 +73,6 @@
         android:layout_width="107dp"
         android:layout_height="89dp"
         android:layout_marginTop="88dp"
-        android:background="@drawable/icon_frame"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
