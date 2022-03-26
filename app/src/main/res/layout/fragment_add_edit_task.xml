@@ -118,6 +118,7 @@
         android:ems="10"
         android:hint="MM/DD/YYYY"
         android:inputType="date"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/addEditTaskMemberList" />

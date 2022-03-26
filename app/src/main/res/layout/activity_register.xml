@@ -173,7 +173,6 @@
         android:id="@+id/imgRegisterIconView"
         android:layout_width="300px"
         android:layout_height="300px"
-        android:background="@drawable/icon_frame"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
